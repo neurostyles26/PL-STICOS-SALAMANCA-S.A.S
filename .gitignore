@@ -67,3 +67,6 @@ workbox-*.js
 *.tmp
 *.bak
 *.orig
+
+# Documentación de uso exclusivo local
+AUDITORIA_CIBERSEGURIDAD.md

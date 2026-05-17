@@ -68,6 +68,22 @@ export default defineNuxtConfig({
     }
   },
 
+  // Políticas de Ciberseguridad (Cabeceras HTTP)
+  nitro: {
+    routeRules: {
+      '/**': {
+        headers: {
+          'X-Content-Type-Options': 'nosniff', // Previene ataques de MIME-sniffing
+          'X-Frame-Options': 'DENY', // Previene ataques de Clickjacking (no permite que la web se incruste en iframes)
+          'X-XSS-Protection': '1; mode=block', // Detiene la carga si detecta Cross-Site Scripting
+          'Referrer-Policy': 'strict-origin-when-cross-origin', // Protege la privacidad de la navegación
+          'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload', // Fuerza conexiones HTTPS seguras (HSTS)
+          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()' // Bloquea acceso a hardware sensible
+        }
+      }
+    }
+  },
+
   // Configuración de la PWA
   pwa: {
     registerType: 'autoUpdate',
