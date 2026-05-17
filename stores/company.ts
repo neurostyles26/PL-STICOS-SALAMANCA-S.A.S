@@ -169,6 +169,24 @@ export const useCompanyStore = defineStore('company', () => {
     }
   }
 
+  // Actualizar toda la información de la empresa en lote
+  async function updateCompanyInfo(info: Record<string, any>) {
+    loading.value = true
+    error.value = null
+    try {
+      const keys = Object.keys(info)
+      for (const key of keys) {
+        await saveCompanyInfo(key, info[key])
+      }
+      return true
+    } catch (err: any) {
+      error.value = err.message || 'Error al actualizar la información general'
+      return false
+    } finally {
+      loading.value = false
+    }
+  }
+
   // Subir imagen a Supabase Storage
   async function uploadImage(file: File, folder: string): Promise<string> {
     loading.value = true
@@ -205,10 +223,12 @@ export const useCompanyStore = defineStore('company', () => {
     loading,
     error,
     fetchBanners,
+    fetchBanners,
     fetchCompanyInfo,
     saveBanner,
     deleteBanner,
     saveCompanyInfo,
+    updateCompanyInfo,
     uploadImage
   }
 })
