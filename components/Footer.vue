@@ -106,11 +106,24 @@
       </div>
 
       <!-- Barra Inferior de Copyright -->
-      <div class="pt-8 border-t border-brand-dark-900 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p>&copy; {{ new Date().getFullYear() }} PLÁSTICOS SALAMANCA S.A.S. Todos los derechos reservados.</p>
-        <div class="flex items-center gap-1.5">
-          <span>Diseño y tecnología industrial por</span>
-          <a href="#" class="text-slate-400 hover:text-white font-semibold">Antigravity Architect</a>
+      <div class="pt-8 border-t border-brand-dark-900 text-xs text-slate-500 flex flex-col md:flex-row justify-between items-center gap-5">
+        <p class="text-center md:text-left">&copy; {{ new Date().getFullYear() }} PLÁSTICOS SALAMANCA S.A.S. Todos los derechos reservados.</p>
+        
+        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+          <!-- Botón sutil de Login Panel -->
+          <NuxtLink to="/admin/login" class="flex items-center gap-1.5 text-slate-500 hover:text-brand-green-400 transition-colors group">
+            <Lock class="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+            <span class="font-semibold uppercase tracking-wider text-[10px]">Panel Admin</span>
+          </NuxtLink>
+          
+          <div class="h-4 w-px bg-slate-800 hidden sm:block"></div>
+          
+          <!-- Créditos del Desarrollador -->
+          <div class="flex items-center gap-2">
+            <span>Desarrollado por</span>
+            <a href="#" class="text-slate-300 hover:text-white font-bold tracking-wide transition-colors">Edisson Pinza</a>
+            <span class="text-[9px] uppercase tracking-[0.2em] text-brand-green-400 bg-brand-green-950/60 px-1.5 py-0.5 rounded border border-brand-green-900/50">Software Dev</span>
+          </div>
         </div>
       </div>
     </div>
@@ -125,7 +138,8 @@ import {
   MapPin, 
   Phone, 
   Mail, 
-  MessageSquare 
+  MessageSquare,
+  Lock 
 } from 'lucide-vue-next'
 
 const companyStore = useCompanyStore()
