@@ -108,7 +108,7 @@ async function handleLogin() {
   loading.value = true
   errorMessage.value = ''
   
-  const success = await authStore.signIn(email.value, password.value)
+  const success = await authStore.login(email.value, password.value)
   
   if (success) {
     // Redirigir al inicio del panel
