@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { compressImage } from '~/utils/image'
 
 export interface Banner {
   id: string
@@ -192,12 +193,30 @@ export const useCompanyStore = defineStore('company', () => {
     loading.value = true
     error.value = null
     try {
-      const fileExt = file.name.split('.').pop()
+      let fileToUpload = file
+      let fileExt = file.name.split('.').pop()
+
+      // Comprimir en el cliente si es una imagen (excluyendo SVG)
+      if (process.client && file.type.startsWith('image/') && file.type !== 'image/svg+xml') {
+        try {
+          const compressed = await compressImage(file, {
+            maxWidth: 1920,
+            maxHeight: 1920,
+            quality: 0.8,
+            mimeType: 'image/webp'
+          })
+          fileToUpload = compressed
+          fileExt = 'webp'
+        } catch (e) {
+          console.error('Error al comprimir la imagen:', e)
+        }
+      }
+
       const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`
       
       const { error: uploadError } = await supabase.storage
         .from('salamanca-media')
-        .upload(fileName, file, {
+        .upload(fileName, fileToUpload, {
           cacheControl: '3600',
           upsert: false
         })
@@ -222,7 +241,6 @@ export const useCompanyStore = defineStore('company', () => {
     companyInfo,
     loading,
     error,
-    fetchBanners,
     fetchBanners,
     fetchCompanyInfo,
     saveBanner,
