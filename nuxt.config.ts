@@ -29,7 +29,6 @@ export default defineNuxtConfig({
 
   // Configuración de Nuxt Image
   image: {
-    provider: 'ipx',
     quality: 85,
     formats: ['webp', 'avif'],
     domains: [
