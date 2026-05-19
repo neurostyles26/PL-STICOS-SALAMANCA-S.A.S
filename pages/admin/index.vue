@@ -170,6 +170,75 @@
 
       <!-- Columna 2: Datos de Contacto y Redes (Campos Cortos) -->
       <div class="lg:col-span-4 flex flex-col gap-8">
+        <!-- 0. Logo Corporativo -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-5">
+          <h4 class="font-title font-bold text-base text-brand-dark-800 border-b border-slate-100 pb-2 flex items-center gap-2">
+            <Upload class="w-5 h-5 text-brand-green-500" />
+            Logo de la Empresa
+          </h4>
+
+          <!-- Especificaciones de diseño profesional -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex flex-col gap-2">
+            <span class="text-xs font-bold text-brand-dark-800">Especificaciones Recomendadas:</span>
+            <ul class="text-[11px] text-slate-500 list-disc pl-4 flex flex-col gap-1.5 leading-normal">
+              <li><strong>Formato:</strong> PNG con fondo transparente o SVG para una nitidez óptima.</li>
+              <li><strong>Proporción:</strong> Formato horizontal (ej. 3:1) o cuadrado (1:1).</li>
+              <li><strong>Tamaño óptimo:</strong> 300px a 500px de ancho para evitar peso excesivo.</li>
+              <li><strong>Contraste:</strong> Asegúrese de que sea legible sobre fondo claro (Navbar) y fondo oscuro (Footer).</li>
+            </ul>
+          </div>
+
+          <!-- Selector de archivo y carga del logo -->
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+              <input 
+                type="file" 
+                ref="logoFileRef"
+                accept="image/*"
+                class="hidden" 
+                @change="uploadLogoImage"
+              />
+              <BaseButton 
+                variant="outline" 
+                size="sm" 
+                :loading="uploadingLogo"
+                @click="$refs.logoFileRef.click()"
+              >
+                Subir Logo
+              </BaseButton>
+              <span class="text-xs text-slate-500 truncate max-w-[150px]">
+                {{ info.logo.image_url ? 'Logo cargado' : 'Sin logo cargado' }}
+              </span>
+            </div>
+
+            <!-- Preview del Logo -->
+            <div v-if="info.logo.image_url" class="relative p-4 border border-slate-200 rounded-xl bg-slate-50 flex items-center justify-center min-h-[100px] shadow-inner">
+              <NuxtImg :src="info.logo.image_url" alt="Logo Preview" class="max-h-12 object-contain" />
+              <button 
+                @click="info.logo.image_url = ''"
+                type="button"
+                class="absolute top-1.5 right-1.5 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow"
+                title="Eliminar logo"
+              >
+                <Trash2 class="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            <!-- Activar logo personalizado -->
+            <div v-if="info.logo.image_url" class="flex items-center gap-2.5 pt-1">
+              <input 
+                id="useCustomLogo"
+                v-model="info.logo.use_custom"
+                type="checkbox"
+                class="w-4 h-4 text-brand-green-600 border-slate-350 rounded focus:ring-brand-green-500 cursor-pointer"
+              />
+              <label for="useCustomLogo" class="text-xs font-bold text-brand-dark-700 select-none cursor-pointer">
+                Usar este logotipo en la web
+              </label>
+            </div>
+          </div>
+        </div>
+
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-5">
           <h4 class="font-title font-bold text-base text-brand-dark-800 border-b border-slate-100 pb-2 flex items-center gap-2">
             <PhoneCall class="w-5 h-5 text-brand-orange-500" />
@@ -244,7 +313,8 @@ import {
   Award, 
   PhoneCall, 
   CheckCircle2, 
-  XCircle 
+  XCircle,
+  Upload
 } from 'lucide-vue-next'
 
 definePageMeta({
@@ -256,13 +326,16 @@ const companyStore = useCompanyStore()
 
 const saving = ref(false)
 const uploadingHistory = ref(false)
+const uploadingLogo = ref(false)
 const historyFileRef = ref<HTMLInputElement | null>(null)
+const logoFileRef = ref<HTMLInputElement | null>(null)
 const successMessage = ref('')
 const errorMessage = ref('')
 
 const newValue = ref('')
 
 const info = reactive({
+  logo: { image_url: '', use_custom: false },
   history: { text: '', image_url: '' },
   mission: { text: '' },
   vision: { text: '' },
@@ -276,6 +349,10 @@ async function loadCompanyData() {
   }
   
   const original = companyStore.companyInfo
+  info.logo = {
+    image_url: original.logo?.image_url || '',
+    use_custom: original.logo?.use_custom ?? false
+  }
   info.history = { 
     text: original.history?.text || '', 
     image_url: original.history?.image_url || '' 
@@ -292,6 +369,28 @@ async function loadCompanyData() {
     whatsapp: originalContact.whatsapp || '',
     google_maps_embed: originalContact.google_maps_embed || ''
   }
+}
+
+// Subir foto del logo a Supabase Storage
+async function uploadLogoImage(e: Event) {
+  const target = e.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (!file) return
+
+  uploadingLogo.value = true
+  errorMessage.value = ''
+  
+  const publicUrl = await companyStore.uploadImage(file, 'logo')
+  
+  if (publicUrl) {
+    info.logo.image_url = publicUrl
+    info.logo.use_custom = true
+    successMessage.value = 'Logotipo corporativo cargado con éxito.'
+    setTimeout(() => successMessage.value = '', 4000)
+  } else {
+    errorMessage.value = companyStore.error || 'Error al intentar subir el logo.'
+  }
+  uploadingLogo.value = false
 }
 
 // Subir foto de la historia a Supabase Storage

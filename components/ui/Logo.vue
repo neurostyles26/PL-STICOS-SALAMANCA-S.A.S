@@ -1,7 +1,15 @@
 <template>
   <div class="flex items-center gap-3 select-none group cursor-pointer">
-    <!-- Logotipo en SVG de alta gama -->
+    <!-- Logotipo: Imagen Personalizada o SVG de alta gama -->
+    <template v-if="customLogoUrl">
+      <NuxtImg 
+        :src="customLogoUrl" 
+        alt="Logo Plásticos Salamanca"
+        :class="[sizeClass, 'object-contain shrink-0 transform transition-transform duration-500 group-hover:scale-105']"
+      />
+    </template>
     <svg 
+      v-else
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 120 120" 
       :class="[sizeClass, 'shrink-0 transform transition-transform duration-500 group-hover:scale-105 group-hover:rotate-6']"
@@ -42,13 +50,19 @@
 
     <!-- Texto Corporativo -->
     <div v-if="!iconOnly" class="flex flex-col leading-none">
-      <span class="font-title font-extrabold text-xl md:text-2xl tracking-tight text-brand-dark-800">
+      <span 
+        class="font-title font-extrabold text-xl md:text-2xl tracking-tight transition-colors duration-300"
+        :class="dark ? 'text-white' : 'text-brand-dark-800'"
+      >
         PLÁSTICOS
       </span>
       <span class="font-title font-extrabold text-lg md:text-xl tracking-wider text-brand-orange-500">
         SALAMANCA
       </span>
-      <span class="text-[9px] font-sans font-semibold text-brand-dark-500 uppercase tracking-[0.2em] mt-0.5">
+      <span 
+        class="text-[9px] font-sans font-semibold uppercase tracking-[0.2em] mt-0.5 transition-colors duration-300"
+        :class="dark ? 'text-slate-400' : 'text-brand-dark-500'"
+      >
         Bolsas • Invernaderos • Empaques
       </span>
     </div>
@@ -57,16 +71,31 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useCompanyStore } from '~/stores/company'
 
 const props = defineProps({
   size: {
     type: String,
-    default: 'md' // sm, md, lg
+    default: 'md' // xs, sm, md, lg, xl
   },
   iconOnly: {
     type: Boolean,
     default: false
+  },
+  dark: {
+    type: Boolean,
+    default: false
   }
+})
+
+const companyStore = useCompanyStore()
+
+const customLogoUrl = computed(() => {
+  const logo = companyStore.companyInfo?.logo
+  if (logo?.use_custom && logo?.image_url) {
+    return logo.image_url
+  }
+  return null
 })
 
 const sizeClass = computed(() => {

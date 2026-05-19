@@ -5,30 +5,7 @@
         <!-- Columna 1: Logo e Identidad -->
         <div class="flex flex-col gap-6">
           <NuxtLink to="/" class="inline-block shrink-0">
-            <!-- Logo modificado para contraste oscuro -->
-            <div class="flex items-center gap-3 select-none group cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="w-12 h-12 shrink-0">
-                <defs>
-                  <linearGradient id="greenGradFoot" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#259351" />
-                    <stop offset="100%" stop-color="#0b5a33" />
-                  </linearGradient>
-                  <linearGradient id="orangeGradFoot" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ff8b4d" />
-                    <stop offset="100%" stop-color="#e06b26" />
-                  </linearGradient>
-                </defs>
-                <path d="M 60,15 C 85,15 105,35 105,60 C 105,75 95,90 85,95 C 80,90 75,75 75,60 C 75,45 65,30 50,25 C 53,18 56,15 60,15 Z" fill="url(#greenGradFoot)" />
-                <path d="M 60,105 C 35,105 15,85 15,60 C 15,45 25,30 35,25 C 40,30 45,45 45,60 C 45,75 55,90 70,95 C 67,102 64,105 60,105 Z" fill="url(#orangeGradFoot)" />
-                <circle cx="60" cy="60" r="14" fill="#ffffff" />
-                <path d="M 57,51 C 62,51 65,54 65,58 C 65,61 62,64 57,64 L 57,69" stroke="#0b5a33" stroke-width="3" stroke-linecap="round" fill="none" />
-              </svg>
-              <div class="flex flex-col leading-none">
-                <span class="font-title font-extrabold text-xl tracking-tight text-white">PLÁSTICOS</span>
-                <span class="font-title font-extrabold text-lg tracking-wider text-brand-orange-500">SALAMANCA</span>
-                <span class="text-[9px] font-sans font-semibold text-slate-400 uppercase tracking-[0.2em] mt-0.5">Bolsas • Invernaderos • Empaques</span>
-              </div>
-            </div>
+            <Logo dark size="md" />
           </NuxtLink>
           <p class="text-sm text-slate-400 leading-relaxed">
             Líderes en soluciones plásticas de alta gama para la agricultura y el empaque industrial. Innovación, resistencia y sostenibilidad en cada bucle.
