@@ -5,7 +5,7 @@
       <NuxtImg 
         :src="customLogoUrl" 
         alt="Logo Plásticos Salamanca"
-        :class="[sizeClass, 'object-contain shrink-0 transform transition-transform duration-500 group-hover:scale-105']"
+        :class="[customLogoClass, 'object-contain shrink-0 transform transition-transform duration-500 group-hover:scale-105']"
       />
     </template>
     <svg 
@@ -48,8 +48,8 @@
       </g>
     </svg>
 
-    <!-- Texto Corporativo -->
-    <div v-if="!iconOnly" class="flex flex-col leading-none">
+    <!-- Texto Corporativo (Ocultar si se usa logo personalizado, ya que suele contener la marca) -->
+    <div v-if="!iconOnly && !customLogoUrl" class="flex flex-col leading-none">
       <span 
         class="font-title font-extrabold text-xl md:text-2xl tracking-tight transition-colors duration-300"
         :class="dark ? 'text-white' : 'text-brand-dark-800'"
@@ -106,6 +106,17 @@ const sizeClass = computed(() => {
     case 'xl': return 'w-24 h-24 md:w-32 md:h-32'
     case 'md':
     default: return 'w-12 h-12 md:w-14 md:h-14'
+  }
+})
+
+const customLogoClass = computed(() => {
+  switch (props.size) {
+    case 'xs': return 'h-8 w-auto'
+    case 'sm': return 'h-10 w-auto'
+    case 'lg': return 'h-12 md:h-16 w-auto'
+    case 'xl': return 'h-20 md:h-24 w-auto'
+    case 'md':
+    default: return 'h-10 md:h-12 w-auto'
   }
 })
 </script>
