@@ -192,12 +192,13 @@ const whatsappUrl = computed(() => {
   return `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${text}`
 })
 
-onMounted(async () => {
+// Cargar datos corporativos y banners si no están cargados (SSR + Client)
+if (!Object.keys(companyStore.companyInfo).length) {
+  await companyStore.fetchCompanyInfo()
+}
+
+onMounted(() => {
   window.addEventListener('scroll', handleScroll)
-  // Cargar datos corporativos y banners si no están cargados
-  if (!Object.keys(companyStore.companyInfo).length) {
-    await companyStore.fetchCompanyInfo()
-  }
 })
 
 onUnmounted(() => {
