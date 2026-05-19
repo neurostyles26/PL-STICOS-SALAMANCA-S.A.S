@@ -92,15 +92,8 @@
             <Lock class="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
             <span class="font-semibold uppercase tracking-wider text-[10px]">Panel Admin</span>
           </NuxtLink>
-          
-          <div class="h-4 w-px bg-slate-800 hidden sm:block"></div>
-          
-          <!-- Créditos del Desarrollador -->
-          <div class="flex items-center gap-2">
-            <span>Desarrollado por</span>
-            <a href="#" class="text-slate-300 hover:text-white font-bold tracking-wide transition-colors">Edisson Pinza</a>
-            <span class="text-[9px] uppercase tracking-[0.2em] text-brand-green-400 bg-brand-green-950/60 px-1.5 py-0.5 rounded border border-brand-green-900/50">Software Dev</span>
-          </div>
+          <!-- Derechos de Autor y Licencia (Preservados en código fuente) -->
+          <!-- Código desarrollado y propiedad intelectual de Edisson Pinza (Software Developer). Todos los derechos reservados. -->
         </div>
       </div>
     </div>
