@@ -10,10 +10,26 @@
           <p class="text-sm text-slate-400 leading-relaxed">
             Líderes en soluciones plásticas de alta gama para la agricultura y el empaque industrial. Innovación, resistencia y sostenibilidad en cada bucle.
           </p>
-          <div class="flex gap-4">
+          <div class="flex flex-wrap items-center gap-3">
             <span class="text-xs font-semibold text-brand-green-400 bg-brand-green-950/60 px-3 py-1 rounded-md border border-brand-green-900/50">
               ISO 9001 CERTIFICADO
             </span>
+          </div>
+
+          <!-- Redes Sociales Dinámicas -->
+          <div v-if="hasSocialLinks" class="flex flex-wrap gap-2.5 pt-1">
+            <a v-if="socialLinks.facebook" :href="socialLinks.facebook" target="_blank" rel="noopener noreferrer" class="p-2 bg-brand-dark-900 hover:bg-brand-green-600 text-slate-300 hover:text-white rounded-lg transition-all duration-300 flex items-center justify-center shadow-sm" title="Facebook">
+              <Facebook class="w-4 h-4" />
+            </a>
+            <a v-if="socialLinks.instagram" :href="socialLinks.instagram" target="_blank" rel="noopener noreferrer" class="p-2 bg-brand-dark-900 hover:bg-brand-orange-500 text-slate-300 hover:text-white rounded-lg transition-all duration-300 flex items-center justify-center shadow-sm" title="Instagram">
+              <Instagram class="w-4 h-4" />
+            </a>
+            <a v-if="socialLinks.twitter" :href="socialLinks.twitter" target="_blank" rel="noopener noreferrer" class="p-2 bg-brand-dark-900 hover:bg-slate-700 text-slate-300 hover:text-white rounded-lg transition-all duration-300 flex items-center justify-center shadow-sm" title="Twitter / X">
+              <Twitter class="w-4 h-4" />
+            </a>
+            <a v-if="socialLinks.linkedin" :href="socialLinks.linkedin" target="_blank" rel="noopener noreferrer" class="p-2 bg-brand-dark-900 hover:bg-blue-600 text-slate-300 hover:text-white rounded-lg transition-all duration-300 flex items-center justify-center shadow-sm" title="LinkedIn">
+              <Linkedin class="w-4 h-4" />
+            </a>
           </div>
         </div>
 
@@ -109,11 +125,29 @@ import {
   Phone, 
   Mail, 
   MessageSquare,
-  Lock 
+  Lock,
+  Facebook,
+  Instagram,
+  Twitter,
+  Linkedin
 } from 'lucide-vue-next'
 
 const companyStore = useCompanyStore()
 const productsStore = useProductsStore()
+
+const socialLinks = computed(() => {
+  return companyStore.companyInfo.social_links || {
+    facebook: '',
+    instagram: '',
+    twitter: '',
+    linkedin: ''
+  }
+})
+
+const hasSocialLinks = computed(() => {
+  const links = socialLinks.value
+  return !!(links.facebook || links.instagram || links.twitter || links.linkedin)
+})
 
 const whatsappUrl = computed(() => {
   const phone = companyStore.companyInfo.contact_details?.whatsapp || '+573102003040'
@@ -122,6 +156,10 @@ const whatsappUrl = computed(() => {
 })
 
 onMounted(async () => {
+  // Asegurar que la info corporativa está cargada
+  if (!Object.keys(companyStore.companyInfo).length) {
+    await companyStore.fetchCompanyInfo()
+  }
   // Asegurar que las categorías están cargadas
   if (productsStore.categories.length === 0) {
     await productsStore.fetchCategories()

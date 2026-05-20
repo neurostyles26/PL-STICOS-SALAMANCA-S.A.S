@@ -97,18 +97,30 @@
           :key="idx"
           v-motion-slide-visible-bottom
           :delay="idx * 100"
-          class="bg-white p-8 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500 flex items-start gap-5 group"
+          class="bg-white p-6 md:p-8 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500 flex flex-col sm:flex-row justify-between gap-6 group"
         >
-          <div class="w-10 h-10 rounded-lg bg-brand-green-50 text-brand-green-500 flex items-center justify-center font-bold font-title text-lg shrink-0 group-hover:bg-brand-green-500 group-hover:text-white transition-colors duration-300">
-            0{{ idx + 1 }}
+          <div class="flex items-start gap-5 flex-grow">
+            <div class="w-10 h-10 rounded-lg bg-brand-green-50 text-brand-green-500 flex items-center justify-center font-bold font-title text-lg shrink-0 group-hover:bg-brand-green-500 group-hover:text-white transition-colors duration-300">
+              0{{ idx + 1 }}
+            </div>
+            <div class="flex flex-col gap-2">
+              <h3 class="text-lg font-bold text-brand-dark-800 font-title group-hover:text-brand-green-500 transition-colors">
+                {{ val.title }}
+              </h3>
+              <p class="text-slate-600 text-sm leading-relaxed text-justify">
+                {{ val.description }}
+              </p>
+            </div>
           </div>
-          <div class="flex flex-col gap-2">
-            <h3 class="text-lg font-bold text-brand-dark-800 font-title group-hover:text-brand-green-500 transition-colors">
-              {{ val.title }}
-            </h3>
-            <p class="text-slate-600 text-sm leading-relaxed text-justify">
-              {{ val.description }}
-            </p>
+          
+          <!-- Espacio para la imagen a la derecha -->
+          <div v-if="val.image_url" class="w-full sm:w-28 md:w-32 aspect-[4/3] sm:aspect-square rounded-xl overflow-hidden shadow-sm border border-slate-100 bg-slate-50 shrink-0 self-center">
+            <NuxtImg 
+              :src="val.image_url" 
+              :alt="val.title"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              format="webp"
+            />
           </div>
         </div>
       </div>
@@ -135,36 +147,55 @@ const companyStore = useCompanyStore()
 const defaultValues = [
   {
     title: 'Calidad Superior',
-    description: 'Buscamos la excelencia técnica y estructural en cada bolsa, empaque e invernadero que sale de nuestra planta industrial.'
+    description: 'Buscamos la excelencia técnica y estructural en cada bolsa, empaque e invernadero que sale de nuestra planta industrial.',
+    image_url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80'
   },
   {
     title: 'Innovación Tecnológica',
-    description: 'Incorporamos constantemente aditivos avanzados y procesos industriales que aumentan la durabilidad y flexibilidad de nuestros plásticos.'
+    description: 'Incorporamos constantemente aditivos avanzados y procesos industriales que aumentan la durabilidad y flexibilidad de nuestros plásticos.',
+    image_url: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=80'
   },
   {
     title: 'Compromiso Sostenible',
-    description: 'Optimizamos la eficiencia energética y los procesos de reciclaje industrial internos para reducir la huella ambiental.'
+    description: 'Optimizamos la eficiencia energética y los procesos de reciclaje industrial internos para reducir la huella ambiental.',
+    image_url: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80'
   },
   {
     title: 'Servicio y Asesoría Técnica',
-    description: 'Brindamos acompañamiento en campo y asesoramiento personalizado para calibres y especificaciones agrícolas y comerciales.'
+    description: 'Brindamos acompañamiento en campo y asesoramiento personalizado para calibres y especificaciones agrícolas y comerciales.',
+    image_url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80'
   }
 ]
 
 const valuesList = computed(() => {
   const storeList = companyStore.companyInfo.values?.list
   if (Array.isArray(storeList) && storeList.length > 0) {
-    return storeList.map((text: string, idx: number) => {
-      // Intentar dividir título y descripción si viene formateado con dos puntos
-      if (text.includes(':')) {
-        const parts = text.split(':')
-        return { title: parts[0].trim(), description: parts[1].trim() }
+    return storeList.map((item: any, idx: number) => {
+      // Si ya viene como objeto (nuevo formato)
+      if (typeof item === 'object' && item !== null) {
+        return {
+          title: item.title || '',
+          description: item.description || '',
+          image_url: item.image_url || ''
+        }
       }
-      // Si no, usar un valor genérico o por defecto
-      return { 
-        title: text, 
-        description: defaultValues[idx]?.description || 'Compromiso constante con la excelencia operativa y satisfacción del cliente.' 
+      // Si viene como string (formato antiguo)
+      if (typeof item === 'string') {
+        if (item.includes(':')) {
+          const parts = item.split(':')
+          return { 
+            title: parts[0].trim(), 
+            description: parts[1].trim(), 
+            image_url: defaultValues[idx]?.image_url || '' 
+          }
+        }
+        return { 
+          title: item, 
+          description: defaultValues[idx]?.description || 'Compromiso constante con la excelencia operativa y satisfacción del cliente.',
+          image_url: defaultValues[idx]?.image_url || ''
+        }
       }
+      return { title: '', description: '', image_url: '' }
     })
   }
   return defaultValues
