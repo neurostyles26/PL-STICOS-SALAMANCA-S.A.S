@@ -28,10 +28,10 @@
           Nuestra Historia en el Mercado del Plástico
         </h2>
         <div class="w-16 h-1 bg-brand-green-500 rounded-full"></div>
-        <p class="text-slate-600 leading-relaxed text-sm md:text-base">
+        <p class="text-slate-600 leading-relaxed text-sm md:text-base text-justify">
           {{ companyStore.companyInfo.history?.text || 'PLÁSTICOS SALAMANCA S.A.S. se fundó con el firme compromiso de proveer soluciones plásticas de alta calidad para el sector agrícola e industrial. A lo largo de los años, nos hemos consolidado como líderes en la fabricación de empaques, bolsas de alta y baja densidad y plásticos técnicos para invernaderos, impulsados por la innovación constante y el compromiso con nuestros clientes.' }}
         </p>
-        <p class="text-slate-600 leading-relaxed text-sm md:text-base">
+        <p class="text-slate-600 leading-relaxed text-sm md:text-base text-justify">
           Nuestros procesos industriales integran la más alta tecnología de coextrusión, lo que nos permite desarrollar productos plásticos multicapa con propiedades de barrera, térmicas y mecánicas optimizadas para las exigentes condiciones geográficas y climáticas colombianas.
         </p>
       </div>
@@ -52,14 +52,14 @@
         <!-- Misión -->
         <div 
           v-motion-slide-visible-left
-          class="bg-white p-8 md:p-12 rounded-2xl border border-slate-200/60 shadow-lg flex flex-col gap-6 group hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+          class="bg-white p-8 md:p-12 rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(11,90,51,0.12)] hover:-translate-y-1 transition-all duration-500 flex flex-col gap-6 group relative overflow-hidden"
         >
-          <div class="absolute top-0 left-0 w-2 h-full bg-brand-green-500"></div>
-          <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-green-500">El Propósito</span>
-          <h3 class="text-2xl md:text-3xl font-extrabold text-brand-dark-800 font-title group-hover:text-brand-green-500 transition-colors">
+          <div class="absolute top-0 left-0 right-0 h-1.5 bg-brand-green-500"></div>
+          <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-green-500 text-center w-full">El Propósito</span>
+          <h3 class="text-2xl md:text-3xl font-extrabold text-brand-dark-800 font-title group-hover:text-brand-green-500 transition-colors text-center w-full">
             Nuestra Misión
           </h3>
-          <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+          <p class="text-slate-600 text-sm md:text-base leading-relaxed text-justify">
             {{ companyStore.companyInfo.mission?.text || 'Nuestra misión es desarrollar, fabricar y comercializar soluciones plásticas de alta calidad e innovación para el sector industrial y agrícola, asegurando la durabilidad, eficiencia y satisfacción de nuestros clientes, apoyados en procesos sostenibles y un talento humano comprometido.' }}
           </p>
         </div>
@@ -67,14 +67,14 @@
         <!-- Visión -->
         <div 
           v-motion-slide-visible-right
-          class="bg-white p-8 md:p-12 rounded-2xl border border-slate-200/60 shadow-lg flex flex-col gap-6 group hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+          class="bg-white p-8 md:p-12 rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(224,107,38,0.12)] hover:-translate-y-1 transition-all duration-500 flex flex-col gap-6 group relative overflow-hidden"
         >
-          <div class="absolute top-0 left-0 w-2 h-full bg-brand-orange-500"></div>
-          <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-orange-500">La Proyección</span>
-          <h3 class="text-2xl md:text-3xl font-extrabold text-brand-dark-800 font-title group-hover:text-brand-orange-500 transition-colors">
+          <div class="absolute top-0 left-0 right-0 h-1.5 bg-brand-orange-500"></div>
+          <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-orange-500 text-center w-full">La Proyección</span>
+          <h3 class="text-2xl md:text-3xl font-extrabold text-brand-dark-800 font-title group-hover:text-brand-orange-500 transition-colors text-center w-full">
             Nuestra Visión
           </h3>
-          <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+          <p class="text-slate-600 text-sm md:text-base leading-relaxed text-justify">
             {{ companyStore.companyInfo.vision?.text || 'Para el 2030, ser reconocidos como el proveedor líder y más confiable de empaques plásticos e invernaderos a nivel nacional, destacándonos por la sostenibilidad ambiental, tecnología de vanguardia y la excelencia en el servicio al cliente.' }}
           </p>
         </div>
@@ -97,7 +97,7 @@
           :key="idx"
           v-motion-slide-visible-bottom
           :delay="idx * 100"
-          class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 flex items-start gap-5 group"
+          class="bg-white p-8 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500 flex items-start gap-5 group"
         >
           <div class="w-10 h-10 rounded-lg bg-brand-green-50 text-brand-green-500 flex items-center justify-center font-bold font-title text-lg shrink-0 group-hover:bg-brand-green-500 group-hover:text-white transition-colors duration-300">
             0{{ idx + 1 }}
@@ -106,7 +106,7 @@
             <h3 class="text-lg font-bold text-brand-dark-800 font-title group-hover:text-brand-green-500 transition-colors">
               {{ val.title }}
             </h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
+            <p class="text-slate-600 text-sm leading-relaxed text-justify">
               {{ val.description }}
             </p>
           </div>
