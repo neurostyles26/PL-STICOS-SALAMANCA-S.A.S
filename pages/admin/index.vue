@@ -67,7 +67,7 @@
                   variant="outline" 
                   size="sm" 
                   :loading="uploadingHistory"
-                  @click="$refs.historyFileRef.click()"
+                  @click="triggerHistoryClick"
                 >
                   Seleccionar Imagen
                 </BaseButton>
@@ -161,7 +161,7 @@
                     variant="outline" 
                     size="sm" 
                     :loading="uploadingNewValueImage"
-                    @click="$refs.newValueFileRef.click()"
+                    @click="triggerNewValueClick"
                   >
                     Cargar Imagen
                   </BaseButton>
@@ -295,7 +295,7 @@
                 variant="outline" 
                 size="sm" 
                 :loading="uploadingLogo"
-                @click="$refs.logoFileRef.click()"
+                @click="triggerLogoClick"
               >
                 Subir Logo
               </BaseButton>
@@ -481,6 +481,18 @@ const newImageUrl = ref('')
 const uploadingNewValueImage = ref(false)
 const newValueFileRef = ref<HTMLInputElement | null>(null)
 const uploadingValueIdx = ref<number | null>(null)
+
+function triggerHistoryClick() {
+  historyFileRef.value?.click()
+}
+
+function triggerNewValueClick() {
+  newValueFileRef.value?.click()
+}
+
+function triggerLogoClick() {
+  logoFileRef.value?.click()
+}
 
 const info = reactive({
   logo: { image_url: '', use_custom: false },
