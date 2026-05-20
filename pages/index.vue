@@ -3,40 +3,7 @@
     <!-- 1. Hero Slider Corporativo Premium -->
     <HeroSlider />
 
-    <!-- 2. Sección Corporativa de Bienvenida -->
-    <section class="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
-      <div v-motion-slide-visible-left class="flex flex-col gap-6">
-        <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-orange-500">
-          ¿Quiénes Somos?
-        </span>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-brand-dark-800 font-bold leading-tight">
-          Líderes en Fabricación de Soluciones Plásticas Industriales y Agrícolas
-        </h2>
-        <div class="w-20 h-1 bg-brand-green-500 rounded-full"></div>
-        <p class="text-slate-600 leading-relaxed text-base md:text-lg">
-          {{ companyStore.companyInfo.history?.text || 'En PLÁSTICOS SALAMANCA S.A.S. nos especializamos en diseñar y fabricar empaques flexibles, bolsas de alta resistencia y películas plásticas avanzadas para invernaderos. Nos impulsa ofrecer materiales con los más altos estándares de calidad y durabilidad para proteger y potenciar tus proyectos agrícolas e industriales.' }}
-        </p>
-        <div class="flex flex-wrap gap-4 mt-2">
-          <BaseButton variant="primary" to="/quienes-somos">
-            Conoce Nuestra Historia
-          </BaseButton>
-          <BaseButton variant="outline" to="/contacto">
-            Hablar con Asesor
-          </BaseButton>
-        </div>
-      </div>
-      <div v-motion-slide-visible-right class="relative aspect-video lg:aspect-square rounded-2xl overflow-hidden shadow-2xl group">
-        <NuxtImg 
-          :src="companyStore.companyInfo.history?.image_url || 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80'" 
-          alt="Instalaciones Plásticos Salamanca"
-          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          format="webp"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark-950/40 to-transparent"></div>
-      </div>
-    </section>
-
-    <!-- 3. Categorías Destacadas (Banners Dinámicos) -->
+    <!-- 2. Categorías Destacadas (Banners Dinámicos - Ahora debajo de Hero Slider) -->
     <section class="py-20 bg-brand-dark-950 text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
@@ -56,7 +23,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           <div 
-            v-for="(cat, i) in productsStore.categories" 
+            v-for="(cat, i) in visibleCategories" 
             :key="cat.id"
             v-motion-slide-visible-bottom
             :delay="i * 150"
@@ -90,6 +57,51 @@
             </div>
           </div>
         </div>
+
+        <!-- Botón Ver Más Categorías -->
+        <div class="flex justify-center mt-12" v-if="productsStore.categories.length > 3">
+          <button 
+            @click="showAllCategories = !showAllCategories"
+            type="button"
+            class="inline-flex items-center gap-2.5 px-6 py-3 border border-white/20 hover:border-brand-green-400 text-sm font-bold tracking-wider uppercase text-white hover:bg-brand-green-500 rounded-full transition-all duration-300 shadow-md group shrink-0"
+          >
+            <span>{{ showAllCategories ? 'Ver Menos Categorías' : 'Ver Más Categorías' }}</span>
+            <ChevronDown class="w-4.5 h-4.5 transition-transform duration-300" :class="{ 'rotate-180': showAllCategories }" />
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Sección Corporativa de Bienvenida -->
+    <section class="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+      <div v-motion-slide-visible-left class="flex flex-col gap-6">
+        <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-orange-500">
+          ¿Quiénes Somos?
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-brand-dark-800 font-bold leading-tight">
+          Líderes en Fabricación de Soluciones Plásticas Industriales y Agrícolas
+        </h2>
+        <div class="w-20 h-1 bg-brand-green-500 rounded-full"></div>
+        <p class="text-slate-600 leading-relaxed text-base md:text-lg">
+          {{ companyStore.companyInfo.history?.text || 'En PLÁSTICOS SALAMANCA S.A.S. nos especializamos en diseñar y fabricar empaques flexibles, bolsas de alta resistencia y películas plásticas avanzadas para invernaderos. Nos impulsa ofrecer materiales con los más altos estándares de calidad y durabilidad para proteger y potenciar tus proyectos agrícolas e industriales.' }}
+        </p>
+        <div class="flex flex-wrap gap-4 mt-2">
+          <BaseButton variant="primary" to="/quienes-somos">
+            Conoce Nuestra Historia
+          </BaseButton>
+          <BaseButton variant="outline" to="/contacto">
+            Hablar con Asesor
+          </BaseButton>
+        </div>
+      </div>
+      <div v-motion-slide-visible-right class="relative aspect-video lg:aspect-square rounded-2xl overflow-hidden shadow-2xl group">
+        <NuxtImg 
+          :src="companyStore.companyInfo.history?.image_url || 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80'" 
+          alt="Instalaciones Plásticos Salamanca"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          format="webp"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark-950/40 to-transparent"></div>
       </div>
     </section>
 
@@ -413,7 +425,8 @@ import {
   MapPin, 
   Phone, 
   Mail, 
-  MessageSquare 
+  MessageSquare,
+  ChevronDown
 } from 'lucide-vue-next'
 
 // Definición del SEO de la Home Page
@@ -428,6 +441,13 @@ useSeoMeta({
 
 const companyStore = useCompanyStore()
 const productsStore = useProductsStore()
+
+const showAllCategories = ref(false)
+
+const visibleCategories = computed(() => {
+  if (showAllCategories.value) return productsStore.categories
+  return productsStore.categories.slice(0, 3)
+})
 
 const formSending = ref(false)
 const formSuccess = ref(false)
