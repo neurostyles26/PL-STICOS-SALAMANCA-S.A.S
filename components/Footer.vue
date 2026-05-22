@@ -78,19 +78,57 @@
             Atención al Cliente
           </h4>
           <div class="flex flex-col gap-4 text-sm text-slate-400">
-            <div class="flex items-start gap-3">
+            <!-- Dirección -->
+            <div v-if="companyStore.companyInfo.contact_details?.address" class="flex items-start gap-3">
               <MapPin class="w-5 h-5 text-brand-orange-500 shrink-0 mt-0.5" />
-              <span>{{ companyStore.companyInfo.contact_details?.address || 'Zona Industrial, Bucaramanga, Santander, Colombia' }}</span>
+              <span>{{ companyStore.companyInfo.contact_details.address }}</span>
             </div>
-            <a :href="`tel:${companyStore.companyInfo.contact_details?.phone}`" class="flex items-start gap-3 hover:text-white transition-colors group">
+
+            <!-- Teléfono Fijo -->
+            <a 
+              v-if="companyStore.companyInfo.contact_details?.show_phone && companyStore.companyInfo.contact_details?.phone" 
+              :href="`tel:${companyStore.companyInfo.contact_details.phone}`" 
+              class="flex items-start gap-3 hover:text-white transition-colors group"
+            >
               <Phone class="w-5 h-5 text-brand-orange-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-              <span>{{ companyStore.companyInfo.contact_details?.phone || '(+57) 607 6351234' }}</span>
+              <span>{{ companyStore.companyInfo.contact_details.phone }}</span>
             </a>
-            <a :href="`mailto:${companyStore.companyInfo.contact_details?.email}`" class="flex items-start gap-3 hover:text-white transition-colors group">
+
+            <!-- Teléfono Celular -->
+            <a 
+              v-if="companyStore.companyInfo.contact_details?.show_cellphone && companyStore.companyInfo.contact_details?.cellphone" 
+              :href="`tel:${companyStore.companyInfo.contact_details.cellphone}`" 
+              class="flex items-start gap-3 hover:text-white transition-colors group"
+            >
+              <Smartphone class="w-5 h-5 text-brand-orange-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+              <span>{{ companyStore.companyInfo.contact_details.cellphone }}</span>
+            </a>
+
+            <!-- NIT -->
+            <div 
+              v-if="companyStore.companyInfo.contact_details?.show_nit && companyStore.companyInfo.contact_details?.nit" 
+              class="flex items-start gap-3 text-slate-400 font-semibold"
+            >
+              <FileText class="w-5 h-5 text-brand-green-500 shrink-0 mt-0.5" />
+              <span>NIT: {{ companyStore.companyInfo.contact_details.nit }}</span>
+            </div>
+
+            <!-- Correo Comercial -->
+            <a 
+              v-if="companyStore.companyInfo.contact_details?.email" 
+              :href="`mailto:${companyStore.companyInfo.contact_details.email}`" 
+              class="flex items-start gap-3 hover:text-white transition-colors group"
+            >
               <Mail class="w-5 h-5 text-brand-orange-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-              <span class="break-all">{{ companyStore.companyInfo.contact_details?.email || 'contacto@plasticossalamanca.com' }}</span>
+              <span class="break-all">{{ companyStore.companyInfo.contact_details.email }}</span>
             </a>
-            <a :href="whatsappUrl" class="flex items-start gap-3 text-brand-green-400 hover:text-brand-green-300 transition-colors group">
+
+            <!-- WhatsApp -->
+            <a 
+              v-if="companyStore.companyInfo.contact_details?.show_whatsapp !== false"
+              :href="whatsappUrl" 
+              class="flex items-start gap-3 text-brand-green-400 hover:text-brand-green-300 transition-colors group"
+            >
               <MessageSquare class="w-5 h-5 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <span class="font-semibold">WhatsApp Corporativo</span>
             </a>
@@ -129,7 +167,9 @@ import {
   Facebook,
   Instagram,
   Twitter,
-  Linkedin
+  Linkedin,
+  Smartphone,
+  FileText
 } from 'lucide-vue-next'
 
 const companyStore = useCompanyStore()

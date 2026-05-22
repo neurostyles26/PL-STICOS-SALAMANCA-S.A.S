@@ -45,7 +45,9 @@ const route = useRoute()
 const companyStore = useCompanyStore()
 
 const showButton = computed(() => {
-  return !route.path.startsWith('/admin')
+  const isNotAdmin = !route.path.startsWith('/admin')
+  const showWhatsappToggle = companyStore.companyInfo.contact_details?.show_whatsapp ?? true
+  return isNotAdmin && showWhatsappToggle
 })
 
 const whatsappUrl = computed(() => {

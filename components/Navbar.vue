@@ -4,22 +4,62 @@
     <div class="hidden lg:block bg-brand-dark-900 text-slate-300 py-2.5 text-xs px-4 xl:px-6 border-b border-brand-dark-800">
       <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
         <div class="flex items-center gap-3 xl:gap-6 flex-wrap">
-          <a :href="`tel:${companyStore.companyInfo.contact_details?.phone}`" class="flex items-center gap-2 hover:text-brand-orange-400 transition-colors">
+          <!-- Teléfono Fijo -->
+          <a 
+            v-if="companyStore.companyInfo.contact_details?.show_phone && companyStore.companyInfo.contact_details?.phone"
+            :href="`tel:${companyStore.companyInfo.contact_details.phone}`" 
+            class="flex items-center gap-2 hover:text-brand-orange-400 transition-colors"
+          >
             <Phone class="w-3.5 h-3.5 text-brand-orange-500" />
-            <span>{{ companyStore.companyInfo.contact_details?.phone || '(+57) 607 6351234' }}</span>
+            <span>{{ companyStore.companyInfo.contact_details.phone }}</span>
           </a>
-          <a :href="`mailto:${companyStore.companyInfo.contact_details?.email}`" class="flex items-center gap-2 hover:text-brand-orange-400 transition-colors">
+
+          <!-- Teléfono Celular -->
+          <a 
+            v-if="companyStore.companyInfo.contact_details?.show_cellphone && companyStore.companyInfo.contact_details?.cellphone"
+            :href="`tel:${companyStore.companyInfo.contact_details.cellphone}`" 
+            class="flex items-center gap-2 hover:text-brand-orange-400 transition-colors"
+          >
+            <Smartphone class="w-3.5 h-3.5 text-brand-orange-500" />
+            <span>{{ companyStore.companyInfo.contact_details.cellphone }}</span>
+          </a>
+
+          <!-- NIT -->
+          <div 
+            v-if="companyStore.companyInfo.contact_details?.show_nit && companyStore.companyInfo.contact_details?.nit"
+            class="flex items-center gap-2 text-slate-300 font-semibold"
+          >
+            <FileText class="w-3.5 h-3.5 text-brand-green-500" />
+            <span>NIT: {{ companyStore.companyInfo.contact_details.nit }}</span>
+          </div>
+
+          <!-- Correo Ventas -->
+          <a 
+            v-if="companyStore.companyInfo.contact_details?.email"
+            :href="`mailto:${companyStore.companyInfo.contact_details.email}`" 
+            class="flex items-center gap-2 hover:text-brand-orange-400 transition-colors"
+          >
             <Mail class="w-3.5 h-3.5 text-brand-orange-500" />
-            <span>{{ companyStore.companyInfo.contact_details?.email || 'contacto@plasticossalamanca.com' }}</span>
+            <span>{{ companyStore.companyInfo.contact_details.email }}</span>
           </a>
-          <div class="flex items-center gap-2 text-slate-400">
+
+          <!-- Dirección -->
+          <div 
+            v-if="companyStore.companyInfo.contact_details?.address"
+            class="flex items-center gap-2 text-slate-400"
+          >
             <MapPin class="w-3.5 h-3.5 text-brand-green-500" />
-            <span>{{ companyStore.companyInfo.contact_details?.address || 'Zona Industrial, Bucaramanga, Colombia' }}</span>
+            <span>{{ companyStore.companyInfo.contact_details.address }}</span>
           </div>
         </div>
+        
         <div class="flex items-center gap-4">
-          <span class="text-brand-green-400 font-semibold tracking-wide uppercase text-[10px] bg-brand-green-950 px-2.5 py-0.5 rounded-full">
-            Lunes a Sábado • 7:00 AM - 5:30 PM
+          <!-- Horario de Atención -->
+          <span 
+            v-if="companyStore.companyInfo.contact_details?.show_schedule && companyStore.companyInfo.contact_details?.schedule"
+            class="text-brand-green-400 font-semibold tracking-wide uppercase text-[10px] bg-brand-green-950 px-2.5 py-0.5 rounded-full"
+          >
+            {{ companyStore.companyInfo.contact_details.schedule }}
           </span>
           <NuxtLink v-if="authStore.isLoggedIn" to="/admin" class="flex items-center gap-1.5 text-brand-orange-400 hover:underline">
             <Settings class="w-3.5 h-3.5" />
@@ -118,13 +158,25 @@
 
         <!-- Datos rápidos móviles -->
         <div class="flex flex-col gap-3 py-4 border-t border-slate-100 text-xs text-brand-dark-500">
-          <div class="flex items-center gap-2">
+          <div v-if="companyStore.companyInfo.contact_details?.show_phone && companyStore.companyInfo.contact_details?.phone" class="flex items-center gap-2">
             <Phone class="w-4 h-4 text-brand-orange-500" />
-            <span>{{ companyStore.companyInfo.contact_details?.phone || '(+57) 607 6351234' }}</span>
+            <span>{{ companyStore.companyInfo.contact_details.phone }}</span>
           </div>
-          <div class="flex items-center gap-2">
+          <div v-if="companyStore.companyInfo.contact_details?.show_cellphone && companyStore.companyInfo.contact_details?.cellphone" class="flex items-center gap-2">
+            <Smartphone class="w-4 h-4 text-brand-orange-500" />
+            <span>{{ companyStore.companyInfo.contact_details.cellphone }}</span>
+          </div>
+          <div v-if="companyStore.companyInfo.contact_details?.show_nit && companyStore.companyInfo.contact_details?.nit" class="flex items-center gap-2 font-semibold">
+            <FileText class="w-4 h-4 text-brand-green-500" />
+            <span>NIT: {{ companyStore.companyInfo.contact_details.nit }}</span>
+          </div>
+          <div v-if="companyStore.companyInfo.contact_details?.email" class="flex items-center gap-2">
             <Mail class="w-4 h-4 text-brand-orange-500" />
-            <span>{{ companyStore.companyInfo.contact_details?.email || 'contacto@plasticossalamanca.com' }}</span>
+            <span>{{ companyStore.companyInfo.contact_details.email }}</span>
+          </div>
+          <div v-if="companyStore.companyInfo.contact_details?.show_schedule && companyStore.companyInfo.contact_details?.schedule" class="flex items-center gap-2">
+            <Clock class="w-4 h-4 text-brand-green-500" />
+            <span>{{ companyStore.companyInfo.contact_details.schedule }}</span>
           </div>
         </div>
 
@@ -161,7 +213,10 @@ import {
   Menu, 
   X, 
   PhoneCall, 
-  Settings 
+  Settings,
+  Smartphone,
+  FileText,
+  Clock
 } from 'lucide-vue-next'
 
 const route = useRoute()

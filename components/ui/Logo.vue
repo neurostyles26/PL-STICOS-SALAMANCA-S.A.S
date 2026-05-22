@@ -17,12 +17,12 @@
       <defs>
         <!-- Degradados premium industriales -->
         <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#259351" />
-          <stop offset="100%" stop-color="#0b5a33" />
+          <stop offset="0%" stop-color="var(--color-brand-green-400, #259351)" />
+          <stop offset="100%" stop-color="var(--color-brand-green-600, #0b5a33)" />
         </linearGradient>
         <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#ff8b4d" />
-          <stop offset="100%" stop-color="#e06b26" />
+          <stop offset="0%" stop-color="var(--color-brand-orange-400, #ff8b4d)" />
+          <stop offset="100%" stop-color="var(--color-brand-orange-600, #e06b26)" />
         </linearGradient>
         <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
           <feDropShadow dx="2" dy="3" stdDeviation="2" flood-opacity="0.15" />
@@ -111,12 +111,12 @@ const sizeClass = computed(() => {
 
 const customLogoClass = computed(() => {
   switch (props.size) {
-    case 'xs': return 'h-8 w-auto'
-    case 'sm': return 'h-10 w-auto'
-    case 'lg': return 'h-12 md:h-16 w-auto'
-    case 'xl': return 'h-20 md:h-24 w-auto'
+    case 'xs': return 'h-9 w-auto'
+    case 'sm': return 'h-11 w-auto'
+    case 'lg': return 'h-18 md:h-24 w-auto'
+    case 'xl': return 'h-26 md:h-36 w-auto'
     case 'md':
-    default: return 'h-10 md:h-12 w-auto'
+    default: return 'h-14 md:h-18 w-auto' // Agrandado para legibilidad del texto en logos horizontales
   }
 })
 </script>

@@ -332,14 +332,77 @@
           </div>
         </div>
 
+        <!-- Colores de la Marca -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-5">
+          <h4 class="font-title font-bold text-base text-brand-dark-800 border-b border-slate-100 pb-2 flex items-center gap-2">
+            <Palette class="w-5 h-5 text-brand-green-500" />
+            Colores de la Marca (Personalización)
+          </h4>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Ajuste los colores principales de su sitio web para alinearlo con su identidad visual corporativa. Los cambios se previsualizan en tiempo real.
+          </p>
+
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Color Primario -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide">Color Primario</label>
+              <div class="flex items-center gap-2">
+                <input 
+                  v-model="info.theme.primary_color" 
+                  type="color" 
+                  class="w-10 h-10 p-0 border border-slate-200 rounded-xl cursor-pointer bg-transparent"
+                />
+                <input 
+                  v-model="info.theme.primary_color" 
+                  type="text" 
+                  class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs font-mono uppercase focus:border-brand-green-500 outline-none"
+                  placeholder="#0B5A33"
+                />
+              </div>
+            </div>
+
+            <!-- Color Secundario -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide">Color Secundario</label>
+              <div class="flex items-center gap-2">
+                <input 
+                  v-model="info.theme.secondary_color" 
+                  type="color" 
+                  class="w-10 h-10 p-0 border border-slate-200 rounded-xl cursor-pointer bg-transparent"
+                />
+                <input 
+                  v-model="info.theme.secondary_color" 
+                  type="text" 
+                  class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs font-mono uppercase focus:border-brand-green-500 outline-none"
+                  placeholder="#E06B26"
+                />
+              </div>
+            </div>
+          </div>
+
+          <BaseButton 
+            variant="outline" 
+            size="sm" 
+            class="w-full text-xs"
+            @click="resetColors"
+          >
+            <RotateCcw class="w-3.5 h-3.5 mr-1.5" />
+            Restablecer Colores por Defecto
+          </BaseButton>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-5 mt-8">
           <h4 class="font-title font-bold text-base text-brand-dark-800 border-b border-slate-100 pb-2 flex items-center gap-2">
             <PhoneCall class="w-5 h-5 text-brand-orange-500" />
             Atención y Canales
           </h4>
 
+          <!-- Dirección Física -->
           <div class="flex flex-col gap-1.5">
-            <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide">Dirección Física</label>
+            <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide flex items-center gap-1.5">
+              <MapPin class="w-3.5 h-3.5 text-brand-green-500" />
+              Dirección Física
+            </label>
             <input 
               v-model="info.contact_details.address" 
               type="text" 
@@ -348,18 +411,12 @@
             />
           </div>
 
+          <!-- Correo de Ventas -->
           <div class="flex flex-col gap-1.5">
-            <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide">Número de Teléfono</label>
-            <input 
-              v-model="info.contact_details.phone" 
-              type="text" 
-              class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-brand-green-500 focus:ring-1 focus:ring-brand-green-500 outline-none"
-              placeholder="Ej: (+57) 607 6351234"
-            />
-          </div>
-
-          <div class="flex flex-col gap-1.5">
-            <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide">Correo de Ventas</label>
+            <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide flex items-center gap-1.5">
+              <Mail class="w-3.5 h-3.5 text-brand-orange-500" />
+              Correo de Ventas
+            </label>
             <input 
               v-model="info.contact_details.email" 
               type="email" 
@@ -368,18 +425,147 @@
             />
           </div>
 
-          <div class="flex flex-col gap-1.5">
-            <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide">WhatsApp Comercial (+ código país)</label>
-            <input 
-              v-model="info.contact_details.whatsapp" 
-              type="text" 
-              class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-brand-green-500 focus:ring-1 focus:ring-brand-green-500 outline-none"
-              placeholder="Ej: +573102003040"
-            />
+          <!-- NIT Corporativo (Con Toggle) -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex flex-col gap-3">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide flex items-center gap-1.5">
+                <FileText class="w-3.5 h-3.5 text-brand-green-500" />
+                NIT Corporativo
+              </label>
+              <input 
+                v-model="info.contact_details.nit" 
+                type="text" 
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:border-brand-green-500 focus:ring-1 focus:ring-brand-green-500 outline-none"
+                placeholder="Ej: 901.234.567-8"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <input 
+                id="showNit"
+                v-model="info.contact_details.show_nit"
+                type="checkbox"
+                class="w-4 h-4 text-brand-green-600 border-slate-300 rounded focus:ring-brand-green-500 cursor-pointer"
+              />
+              <label for="showNit" class="text-xs font-semibold text-slate-600 select-none cursor-pointer">
+                Mostrar NIT públicamente en la web
+              </label>
+            </div>
           </div>
 
+          <!-- Teléfono Celular (Con Toggle) -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex flex-col gap-3">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide flex items-center gap-1.5">
+                <Smartphone class="w-3.5 h-3.5 text-brand-orange-500" />
+                Número de Celular
+              </label>
+              <input 
+                v-model="info.contact_details.cellphone" 
+                type="text" 
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:border-brand-green-500 focus:ring-1 focus:ring-brand-green-500 outline-none"
+                placeholder="Ej: (+57) 310 200 3040"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <input 
+                id="showCellphone"
+                v-model="info.contact_details.show_cellphone"
+                type="checkbox"
+                class="w-4 h-4 text-brand-green-600 border-slate-300 rounded focus:ring-brand-green-500 cursor-pointer"
+              />
+              <label for="showCellphone" class="text-xs font-semibold text-slate-600 select-none cursor-pointer">
+                Mostrar Celular en la web
+              </label>
+            </div>
+          </div>
+
+          <!-- Teléfono Fijo (Con Toggle) -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex flex-col gap-3">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide flex items-center gap-1.5">
+                <Phone class="w-3.5 h-3.5 text-brand-orange-500" />
+                Teléfono Fijo
+              </label>
+              <input 
+                v-model="info.contact_details.phone" 
+                type="text" 
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:border-brand-green-500 focus:ring-1 focus:ring-brand-green-500 outline-none"
+                placeholder="Ej: (+57) 607 6351234"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <input 
+                id="showPhone"
+                v-model="info.contact_details.show_phone"
+                type="checkbox"
+                class="w-4 h-4 text-brand-green-600 border-slate-300 rounded focus:ring-brand-green-500 cursor-pointer"
+              />
+              <label for="showPhone" class="text-xs font-semibold text-slate-600 select-none cursor-pointer">
+                Mostrar Teléfono Fijo en la web
+              </label>
+            </div>
+          </div>
+
+          <!-- WhatsApp Comercial (Con Toggle) -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex flex-col gap-3">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide flex items-center gap-1.5">
+                <MessageSquare class="w-3.5 h-3.5 text-brand-green-500" />
+                WhatsApp Comercial (+ código país)
+              </label>
+              <input 
+                v-model="info.contact_details.whatsapp" 
+                type="text" 
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:border-brand-green-500 focus:ring-1 focus:ring-brand-green-500 outline-none"
+                placeholder="Ej: +573102003040"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <input 
+                id="showWhatsapp"
+                v-model="info.contact_details.show_whatsapp"
+                type="checkbox"
+                class="w-4 h-4 text-brand-green-600 border-slate-300 rounded focus:ring-brand-green-500 cursor-pointer"
+              />
+              <label for="showWhatsapp" class="text-xs font-semibold text-slate-600 select-none cursor-pointer">
+                Activar botón y enlaces de WhatsApp
+              </label>
+            </div>
+          </div>
+
+          <!-- Horario de Atención (Con Toggle) -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex flex-col gap-3">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide flex items-center gap-1.5">
+                <Clock class="w-3.5 h-3.5 text-brand-green-500" />
+                Horario de Atención
+              </label>
+              <input 
+                v-model="info.contact_details.schedule" 
+                type="text" 
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:border-brand-green-500 focus:ring-1 focus:ring-brand-green-500 outline-none"
+                placeholder="Ej: Lunes a Viernes 8:00 AM - 6:00 PM"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <input 
+                id="showSchedule"
+                v-model="info.contact_details.show_schedule"
+                type="checkbox"
+                class="w-4 h-4 text-brand-green-600 border-slate-300 rounded focus:ring-brand-green-500 cursor-pointer"
+              />
+              <label for="showSchedule" class="text-xs font-semibold text-slate-600 select-none cursor-pointer">
+                Mostrar Horario en la barra superior
+              </label>
+            </div>
+          </div>
+
+          <!-- Google Maps Embed -->
           <div class="flex flex-col gap-1.5">
-            <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide">Google Maps Embed URL (Iframe src)</label>
+            <label class="text-xs font-bold text-brand-dark-700 uppercase tracking-wide flex items-center gap-1.5">
+              <MapPin class="w-3.5 h-3.5 text-brand-orange-500" />
+              Google Maps Embed URL (Iframe src)
+            </label>
             <textarea 
               v-model="info.contact_details.google_maps_embed" 
               rows="3" 
@@ -456,8 +642,19 @@ import {
   CheckCircle2, 
   XCircle,
   Upload,
-  Share2
+  Share2,
+  Palette,
+  RotateCcw,
+  MapPin,
+  Mail,
+  FileText,
+  Smartphone,
+  Phone,
+  MessageSquare,
+  Clock
 } from 'lucide-vue-next'
+import { watch } from 'vue'
+import { generatePalette } from '~/utils/colors'
 
 definePageMeta({
   layout: 'admin',
@@ -501,7 +698,25 @@ const info = reactive({
   vision: { text: '' },
   values: { list: [] as any[] },
   social_links: { facebook: '', instagram: '', twitter: '', linkedin: '' },
-  contact_details: { address: '', phone: '', email: '', whatsapp: '', google_maps_embed: '' }
+  contact_details: {
+    address: '',
+    phone: '',
+    show_phone: true,
+    cellphone: '',
+    show_cellphone: true,
+    nit: '',
+    show_nit: true,
+    email: '',
+    whatsapp: '',
+    show_whatsapp: true,
+    schedule: '',
+    show_schedule: true,
+    google_maps_embed: ''
+  },
+  theme: {
+    primary_color: '#0b5a33',
+    secondary_color: '#e06b26'
+  }
 })
 
 async function loadCompanyData() {
@@ -554,9 +769,23 @@ async function loadCompanyData() {
   info.contact_details = {
     address: originalContact.address || '',
     phone: originalContact.phone || '',
+    show_phone: originalContact.show_phone ?? true,
+    cellphone: originalContact.cellphone || '',
+    show_cellphone: originalContact.show_cellphone ?? true,
+    nit: originalContact.nit || '',
+    show_nit: originalContact.show_nit ?? true,
     email: originalContact.email || '',
     whatsapp: originalContact.whatsapp || '',
+    show_whatsapp: originalContact.show_whatsapp ?? true,
+    schedule: originalContact.schedule || '',
+    show_schedule: originalContact.show_schedule ?? true,
     google_maps_embed: originalContact.google_maps_embed || ''
+  }
+
+  const originalTheme = original.theme || {}
+  info.theme = {
+    primary_color: originalTheme.primary_color || '#0b5a33',
+    secondary_color: originalTheme.secondary_color || '#e06b26'
   }
 }
 
@@ -669,6 +898,42 @@ function addValue() {
 function removeValue(index: number) {
   info.values.list.splice(index, 1)
 }
+
+// Guardar toda la información de vuelta en la BD
+// Restablecer colores corporativos por defecto
+function resetColors() {
+  info.theme.primary_color = '#0b5a33'
+  info.theme.secondary_color = '#e06b26'
+}
+
+// Watcher para aplicar cambios de color en tiempo real en el navegador
+watch(
+  () => [info.theme.primary_color, info.theme.secondary_color],
+  ([newPrimary, newSecondary]) => {
+    if (process.client) {
+      const primaryPalette = generatePalette(newPrimary || '#0b5a33')
+      const secondaryPalette = generatePalette(newSecondary || '#e06b26')
+      
+      let styleTag = document.getElementById('dynamic-theme-colors')
+      if (!styleTag) {
+        styleTag = document.createElement('style')
+        styleTag.id = 'dynamic-theme-colors'
+        document.head.appendChild(styleTag)
+      }
+      
+      let styles = ':root {\n'
+      for (const [shade, val] of Object.entries(primaryPalette)) {
+        styles += `  --color-brand-green-${shade}: ${val};\n`
+      }
+      for (const [shade, val] of Object.entries(secondaryPalette)) {
+        styles += `  --color-brand-orange-${shade}: ${val};\n`
+      }
+      styles += '}'
+      styleTag.innerHTML = styles
+    }
+  },
+  { deep: true }
+)
 
 // Guardar toda la información de vuelta en la BD
 async function saveCompanyInfo() {

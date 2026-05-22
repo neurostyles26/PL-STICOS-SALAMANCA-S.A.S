@@ -31,37 +31,96 @@
         </div>
 
         <div class="flex flex-col gap-6">
-          <div class="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group">
+          <!-- Dirección Física -->
+          <div v-if="companyStore.companyInfo.contact_details?.address" class="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group">
             <div class="w-12 h-12 rounded-xl bg-brand-green-50 text-brand-green-500 flex items-center justify-center shrink-0 group-hover:bg-brand-green-500 group-hover:text-white transition-colors duration-300">
               <MapPin class="w-6 h-6" />
             </div>
             <div class="flex flex-col leading-relaxed">
               <span class="font-title font-bold text-sm text-brand-dark-800">Dirección Física</span>
-              <span class="text-slate-600 text-sm mt-1">{{ companyStore.companyInfo.contact_details?.address || 'Zona Industrial, Bucaramanga, Santander, Colombia' }}</span>
+              <span class="text-slate-600 text-sm mt-1">{{ companyStore.companyInfo.contact_details.address }}</span>
             </div>
           </div>
 
-          <a :href="`tel:${companyStore.companyInfo.contact_details?.phone}`" class="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group">
+          <!-- Teléfono Fijo -->
+          <a 
+            v-if="companyStore.companyInfo.contact_details?.show_phone && companyStore.companyInfo.contact_details?.phone" 
+            :href="`tel:${companyStore.companyInfo.contact_details.phone}`" 
+            class="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group"
+          >
             <div class="w-12 h-12 rounded-xl bg-brand-green-50 text-brand-green-500 flex items-center justify-center shrink-0 group-hover:bg-brand-green-500 group-hover:text-white transition-colors duration-300">
               <Phone class="w-6 h-6" />
             </div>
             <div class="flex flex-col leading-relaxed">
-              <span class="font-title font-bold text-sm text-brand-dark-800">Línea Telefónica</span>
-              <span class="text-slate-600 text-sm mt-1">{{ companyStore.companyInfo.contact_details?.phone || '(+57) 607 6351234' }}</span>
+              <span class="font-title font-bold text-sm text-brand-dark-800">Teléfono Fijo</span>
+              <span class="text-slate-600 text-sm mt-1">{{ companyStore.companyInfo.contact_details.phone }}</span>
             </div>
           </a>
 
-          <a :href="`mailto:${companyStore.companyInfo.contact_details?.email}`" class="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group">
+          <!-- Teléfono Celular -->
+          <a 
+            v-if="companyStore.companyInfo.contact_details?.show_cellphone && companyStore.companyInfo.contact_details?.cellphone" 
+            :href="`tel:${companyStore.companyInfo.contact_details.cellphone}`" 
+            class="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group"
+          >
+            <div class="w-12 h-12 rounded-xl bg-brand-green-50 text-brand-green-500 flex items-center justify-center shrink-0 group-hover:bg-brand-green-500 group-hover:text-white transition-colors duration-300">
+              <Smartphone class="w-6 h-6" />
+            </div>
+            <div class="flex flex-col leading-relaxed">
+              <span class="font-title font-bold text-sm text-brand-dark-800">Teléfono Celular</span>
+              <span class="text-slate-600 text-sm mt-1">{{ companyStore.companyInfo.contact_details.cellphone }}</span>
+            </div>
+          </a>
+
+          <!-- NIT -->
+          <div 
+            v-if="companyStore.companyInfo.contact_details?.show_nit && companyStore.companyInfo.contact_details?.nit" 
+            class="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group"
+          >
+            <div class="w-12 h-12 rounded-xl bg-brand-green-50 text-brand-green-500 flex items-center justify-center shrink-0 group-hover:bg-brand-green-500 group-hover:text-white transition-colors duration-300">
+              <FileText class="w-6 h-6" />
+            </div>
+            <div class="flex flex-col leading-relaxed">
+              <span class="font-title font-bold text-sm text-brand-dark-800">NIT (Identificación Tributaria)</span>
+              <span class="text-slate-600 text-sm mt-1">{{ companyStore.companyInfo.contact_details.nit }}</span>
+            </div>
+          </div>
+
+          <!-- Horario de Atención -->
+          <div 
+            v-if="companyStore.companyInfo.contact_details?.show_schedule && companyStore.companyInfo.contact_details?.schedule" 
+            class="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group"
+          >
+            <div class="w-12 h-12 rounded-xl bg-brand-green-50 text-brand-green-500 flex items-center justify-center shrink-0 group-hover:bg-brand-green-500 group-hover:text-white transition-colors duration-300">
+              <Clock class="w-6 h-6" />
+            </div>
+            <div class="flex flex-col leading-relaxed">
+              <span class="font-title font-bold text-sm text-brand-dark-800">Horario de Atención</span>
+              <span class="text-slate-600 text-sm mt-1">{{ companyStore.companyInfo.contact_details.schedule }}</span>
+            </div>
+          </div>
+
+          <!-- Correo Comercial -->
+          <a 
+            v-if="companyStore.companyInfo.contact_details?.email" 
+            :href="`mailto:${companyStore.companyInfo.contact_details.email}`" 
+            class="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group"
+          >
             <div class="w-12 h-12 rounded-xl bg-brand-green-50 text-brand-green-500 flex items-center justify-center shrink-0 group-hover:bg-brand-green-500 group-hover:text-white transition-colors duration-300">
               <Mail class="w-6 h-6" />
             </div>
             <div class="flex flex-col leading-relaxed">
               <span class="font-title font-bold text-sm text-brand-dark-800">Correo Comercial</span>
-              <span class="text-slate-600 text-sm mt-1 break-all">{{ companyStore.companyInfo.contact_details?.email || 'contacto@plasticossalamanca.com' }}</span>
+              <span class="text-slate-600 text-sm mt-1 break-all">{{ companyStore.companyInfo.contact_details.email }}</span>
             </div>
           </a>
 
-          <a :href="whatsappUrl" class="flex items-start gap-4 p-5 bg-brand-green-50/50 border border-brand-green-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group">
+          <!-- WhatsApp Link -->
+          <a 
+            v-if="companyStore.companyInfo.contact_details?.show_whatsapp !== false" 
+            :href="whatsappUrl" 
+            class="flex items-start gap-4 p-5 bg-brand-green-50/50 border border-brand-green-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow group"
+          >
             <div class="w-12 h-12 rounded-xl bg-brand-green-500 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
               <MessageSquare class="w-6 h-6" />
             </div>
@@ -190,7 +249,7 @@
 import { ref, reactive, computed, onMounted } from 'vue'
 import { useCompanyStore } from '~/stores/company'
 import BaseButton from '~/components/ui/BaseButton.vue'
-import { MapPin, Phone, Mail, MessageSquare, ShieldCheck } from 'lucide-vue-next'
+import { MapPin, Phone, Mail, MessageSquare, ShieldCheck, Smartphone, FileText, Clock } from 'lucide-vue-next'
 
 useSeoMeta({
   title: 'Contacto Comercial',
