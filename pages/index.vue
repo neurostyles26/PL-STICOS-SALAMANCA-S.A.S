@@ -531,8 +531,8 @@ function getCategoryFallbackImage(category: any) {
 }
 
 // Manejador de error para cargar el fallback en caso de URLs rotas (404, etc.)
-function handleImageError(event: Event, category: any) {
-  const imgElement = event.target as HTMLImageElement
+function handleImageError(event: any, category: any) {
+  const imgElement = event?.target as HTMLImageElement
   if (imgElement) {
     imgElement.src = getUnsplashFallback(category.slug || '')
   }
