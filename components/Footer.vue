@@ -138,16 +138,15 @@
 
       <!-- Barra Inferior de Copyright -->
       <div class="pt-8 border-t border-brand-dark-900 text-xs text-slate-500 flex flex-col md:flex-row justify-between items-center gap-5">
-        <p class="text-center md:text-left">&copy; {{ new Date().getFullYear() }} PLÁSTICOS SALAMANCA S.A.S. Todos los derechos reservados.</p>
+        <p class="text-center md:text-left">&copy; {{ new Date().getFullYear() }} PLÁSTICOS SALAMANCA S.A.S. — Software bajo licencia de uso.</p>
         
         <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+          <span class="text-slate-600 text-[10px] tracking-wide">Desarrollado por <a href="https://github.com/edissonpinza98" target="_blank" rel="noopener noreferrer" class="text-brand-green-400 hover:text-brand-green-300 font-semibold transition-colors">NeuroStyles</a></span>
           <!-- Botón sutil de Login Panel -->
           <NuxtLink to="/admin/login" class="flex items-center gap-1.5 text-slate-500 hover:text-brand-green-400 transition-colors group">
             <Lock class="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
             <span class="font-semibold uppercase tracking-wider text-[10px]">Panel Admin</span>
           </NuxtLink>
-          <!-- Derechos de Autor y Licencia (Preservados en código fuente) -->
-          <!-- Código desarrollado y propiedad intelectual de Edisson Pinza (Software Developer). Todos los derechos reservados. -->
         </div>
       </div>
     </div>
