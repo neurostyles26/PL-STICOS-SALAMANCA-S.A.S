@@ -252,7 +252,7 @@
       <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 relative z-10 text-center md:text-left">
         <div class="flex flex-col gap-3">
           <span class="text-brand-orange-300 font-bold uppercase tracking-widest text-xs md:text-sm">¿Necesitas una medida especial?</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-title leading-tight max-w-xl">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-title leading-tight max-w-xl text-white">
             Fabricamos Bolsas y Empaques Plásticos a Medida Industrial
           </h2>
         </div>
