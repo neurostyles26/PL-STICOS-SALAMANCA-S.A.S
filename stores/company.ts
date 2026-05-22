@@ -27,7 +27,7 @@ export interface CompanyDetails {
 }
 
 export const useCompanyStore = defineStore('company', () => {
-  const supabase = useSupabaseClient()
+  const supabase = useSupabaseClient<any>()
 
   const banners = ref<Banner[]>([])
   const companyInfo = ref<Record<string, any>>({})

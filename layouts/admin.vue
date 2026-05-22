@@ -156,9 +156,6 @@ const activePageTitle = computed(() => {
 
 async function handleLogout() {
   isMobileMenuOpen.value = false
-  const success = await authStore.logout()
-  if (success) {
-    router.push('/admin/login')
-  }
+  await authStore.logout()
 }
 </script>

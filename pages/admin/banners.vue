@@ -184,7 +184,7 @@
                     variant="outline" 
                     size="sm" 
                     :loading="uploadingImage"
-                    @click.prevent="$refs.bannerFileRef.click()"
+                    @click.prevent="bannerFileRef?.click()"
                   >
                     Seleccionar Foto
                   </BaseButton>

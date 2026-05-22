@@ -183,7 +183,7 @@
                     variant="outline" 
                     size="sm" 
                     :loading="uploadingImage"
-                    @click.prevent="$refs.categoryFileRef.click()"
+                    @click.prevent="categoryFileRef?.click()"
                   >
                     Cargar Portada
                   </BaseButton>
@@ -303,8 +303,8 @@ function openEditModal(cat: Category) {
   editingId.value = cat.id
   form.name = cat.name
   form.slug = cat.slug
-  form.description = cat.description
-  form.image_url = cat.image_url
+  form.description = cat.description || ''
+  form.image_url = cat.image_url || ''
   isModalOpen.value = true
 }
 

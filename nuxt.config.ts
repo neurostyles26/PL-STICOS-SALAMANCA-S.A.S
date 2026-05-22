@@ -36,7 +36,7 @@ export default defineNuxtConfig({
   // Configuración de Nuxt Image
   image: {
     quality: 85,
-    formats: ['webp', 'avif'],
+    format: ['webp', 'avif'],
     domains: [
       'images.unsplash.com',
       'fmwsutadjjlyxcasobob.supabase.co'

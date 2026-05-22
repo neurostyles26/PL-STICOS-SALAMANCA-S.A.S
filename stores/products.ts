@@ -30,7 +30,7 @@ export interface Product {
 }
 
 export const useProductsStore = defineStore('products', () => {
-  const supabase = useSupabaseClient()
+  const supabase = useSupabaseClient<any>()
   
   const categories = ref<Category[]>([])
   const products = ref<Product[]>([])

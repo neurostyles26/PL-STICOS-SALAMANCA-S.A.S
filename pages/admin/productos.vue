@@ -282,7 +282,7 @@
                   variant="outline" 
                   size="sm" 
                   :loading="uploadingGallery"
-                  @click.prevent="$refs.galleryFilesRef.click()"
+                  @click.prevent="galleryFilesRef?.click()"
                 >
                   Subir Foto(s) de Galería
                 </BaseButton>
