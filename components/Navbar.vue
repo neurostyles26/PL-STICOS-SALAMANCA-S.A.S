@@ -1,74 +1,5 @@
 <template>
   <header class="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300" :class="[isScrolled ? 'shadow-md border-b border-slate-200/50' : '']">
-    <!-- Barra superior fina para datos de contacto corporativo (solo escritorio) -->
-    <div class="hidden lg:block bg-brand-dark-900 text-slate-300 py-2.5 text-xs px-4 xl:px-6 border-b border-brand-dark-800">
-      <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
-        <div class="flex items-center gap-3 xl:gap-6 flex-wrap">
-          <!-- Teléfono Fijo -->
-          <a 
-            v-if="companyStore.companyInfo.contact_details?.show_phone && companyStore.companyInfo.contact_details?.phone"
-            :href="`tel:${companyStore.companyInfo.contact_details.phone}`" 
-            class="flex items-center gap-2 hover:text-brand-orange-400 transition-colors"
-          >
-            <Phone class="w-3.5 h-3.5 text-brand-orange-500" />
-            <span>{{ companyStore.companyInfo.contact_details.phone }}</span>
-          </a>
-
-          <!-- Teléfono Celular -->
-          <a 
-            v-if="companyStore.companyInfo.contact_details?.show_cellphone && companyStore.companyInfo.contact_details?.cellphone"
-            :href="`tel:${companyStore.companyInfo.contact_details.cellphone}`" 
-            class="flex items-center gap-2 hover:text-brand-orange-400 transition-colors"
-          >
-            <Smartphone class="w-3.5 h-3.5 text-brand-orange-500" />
-            <span>{{ companyStore.companyInfo.contact_details.cellphone }}</span>
-          </a>
-
-          <!-- NIT -->
-          <div 
-            v-if="companyStore.companyInfo.contact_details?.show_nit && companyStore.companyInfo.contact_details?.nit"
-            class="flex items-center gap-2 text-slate-300 font-semibold"
-          >
-            <FileText class="w-3.5 h-3.5 text-brand-green-500" />
-            <span>NIT: {{ companyStore.companyInfo.contact_details.nit }}</span>
-          </div>
-
-          <!-- Correo Ventas -->
-          <a 
-            v-if="companyStore.companyInfo.contact_details?.email"
-            :href="`mailto:${companyStore.companyInfo.contact_details.email}`" 
-            class="flex items-center gap-2 hover:text-brand-orange-400 transition-colors"
-          >
-            <Mail class="w-3.5 h-3.5 text-brand-orange-500" />
-            <span>{{ companyStore.companyInfo.contact_details.email }}</span>
-          </a>
-
-          <!-- Dirección -->
-          <div 
-            v-if="companyStore.companyInfo.contact_details?.address"
-            class="flex items-center gap-2 text-slate-400"
-          >
-            <MapPin class="w-3.5 h-3.5 text-brand-green-500" />
-            <span>{{ companyStore.companyInfo.contact_details.address }}</span>
-          </div>
-        </div>
-        
-        <div class="flex items-center gap-4">
-          <!-- Horario de Atención -->
-          <span 
-            v-if="companyStore.companyInfo.contact_details?.show_schedule && companyStore.companyInfo.contact_details?.schedule"
-            class="text-brand-green-400 font-semibold tracking-wide uppercase text-[10px] bg-brand-green-950 px-2.5 py-0.5 rounded-full"
-          >
-            {{ companyStore.companyInfo.contact_details.schedule }}
-          </span>
-          <NuxtLink v-if="authStore.isLoggedIn" to="/admin" class="flex items-center gap-1.5 text-brand-orange-400 hover:underline">
-            <Settings class="w-3.5 h-3.5" />
-            <span>Panel Admin</span>
-          </NuxtLink>
-        </div>
-      </div>
-    </div>
-
     <!-- Navegación Principal (Glassmorphism) -->
     <nav class="w-full bg-white/90 backdrop-blur-md px-4 py-3 sm:px-6 md:px-8 transition-all duration-300" :class="[isScrolled ? 'py-2.5 sm:py-3' : 'py-3 sm:py-4 md:py-5']">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -196,7 +127,7 @@
     </transition>
   </header>
   <!-- Espaciador para evitar que el header fijo tape el contenido superior -->
-  <div class="h-[64px] sm:h-[72px] lg:h-[112px]"></div>
+  <div class="h-[64px] sm:h-[72px] md:h-[80px]"></div>
 </template>
 
 <script setup lang="ts">
