@@ -5,7 +5,7 @@
     :href="whatsappUrl" 
     target="_blank"
     rel="noopener noreferrer"
-    class="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 flex items-center justify-center w-[60px] h-[60px] rounded-full shadow-[0_8px_30px_rgb(37,211,102,0.4)] hover:shadow-[0_8px_40px_rgb(37,211,102,0.6)] hover:-translate-y-1 active:scale-95 transition-all duration-300 group"
+    class="fixed bottom-32 md:bottom-8 right-4 md:right-8 z-50 flex items-center justify-center w-[60px] h-[60px] rounded-full shadow-[0_8px_30px_rgb(37,211,102,0.4)] hover:shadow-[0_8px_40px_rgb(37,211,102,0.6)] hover:-translate-y-1 active:scale-95 transition-all duration-300 group"
     aria-label="Contactar por WhatsApp"
   >
     <!-- Fondo Gradiente y Glass -->
