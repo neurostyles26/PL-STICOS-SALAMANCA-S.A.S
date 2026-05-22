@@ -29,12 +29,13 @@
             :delay="i * 150"
             class="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl group cursor-pointer border border-brand-dark-900"
           >
-            <!-- Imagen de fondo optimizada -->
+            <!-- Imagen de fondo optimizada con fallbacks robustos -->
             <NuxtImg 
-              :src="cat.image_url" 
+              :src="getCategoryFallbackImage(cat)" 
               :alt="cat.name"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               format="webp"
+              @error="handleImageError($event, cat)"
             />
             <!-- Overlay visual sofisticado -->
             <div class="absolute inset-0 bg-gradient-to-t from-brand-dark-950 via-brand-dark-950/40 to-transparent transition-opacity duration-300"></div>
@@ -519,6 +520,40 @@ async function submitForm() {
   setTimeout(() => {
     formSuccess.value = false
   }, 5000)
+}
+
+// Imagen de fallback premium basada en el nombre/slug de la categoría
+function getCategoryFallbackImage(category: any) {
+  if (category.image_url && category.image_url.trim() !== '') {
+    return category.image_url
+  }
+  return getUnsplashFallback(category.slug || '')
+}
+
+// Manejador de error para cargar el fallback en caso de URLs rotas (404, etc.)
+function handleImageError(event: Event, category: any) {
+  const imgElement = event.target as HTMLImageElement
+  if (imgElement) {
+    imgElement.src = getUnsplashFallback(category.slug || '')
+  }
+}
+
+// Retorna una imagen premium de Unsplash acorde al tipo de línea plástica
+function getUnsplashFallback(slug: string): string {
+  const s = slug.toLowerCase()
+  if (s.includes('agri') || s.includes('inver') || s.includes('campo') || s.includes('culti')) {
+    // Línea Agrícola / Invernaderos
+    return 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80'
+  } else if (s.includes('comerc') || s.includes('bolsa') || s.includes('venta') || s.includes('tienda')) {
+    // Línea Comercial / Bolsas
+    return 'https://images.unsplash.com/photo-1605600611280-146c68e3b9ef?auto=format&fit=crop&w=800&q=80'
+  } else if (s.includes('hosp') || s.includes('salud') || s.includes('medic') || s.includes('clini')) {
+    // Línea Hospitalaria / Residuos de salud
+    return 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80'
+  } else {
+    // Fallback general: Empaques / Industrial
+    return 'https://images.unsplash.com/photo-1595079676339-1534801ad6cf?auto=format&fit=crop&w=800&q=80'
+  }
 }
 
 onMounted(async () => {

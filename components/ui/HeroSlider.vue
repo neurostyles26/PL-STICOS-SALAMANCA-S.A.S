@@ -18,8 +18,8 @@
           format="webp"
         />
 
-        <!-- Overlay Oscuro Degradado para Legibilidad Premium -->
-        <div class="absolute inset-0 bg-gradient-to-r from-brand-dark-950/90 via-brand-dark-900/60 to-transparent"></div>
+        <!-- Overlay Oscuro Degradado para Legibilidad Premium (Optimizado para brillo y nitidez de las imágenes) -->
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-dark-950/50 via-brand-dark-950/20 to-transparent"></div>
 
         <!-- Contenido del Slide (Animaciones suaves con Motion Vue / Tailwind) -->
         <div class="absolute inset-0 flex items-center">
