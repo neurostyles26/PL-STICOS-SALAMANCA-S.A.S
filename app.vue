@@ -14,6 +14,11 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * @license PROPRIETARY
+ * Copyright (c) 2025-2026 Edisson Pinza — NeuroStyles. All rights reserved.
+ * Licensed under proprietary terms. See LICENSE file in workspace root.
+ */
 import { computed } from 'vue'
 import { useCompanyStore } from '~/stores/company'
 import { generatePalette } from '~/utils/colors'

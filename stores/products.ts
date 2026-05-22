@@ -1,3 +1,8 @@
+/**
+ * @license PROPRIETARY
+ * Copyright (c) 2025-2026 Edisson Pinza — NeuroStyles. All rights reserved.
+ * Licensed under proprietary terms. See LICENSE file in workspace root.
+ */
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 

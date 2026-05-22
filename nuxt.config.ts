@@ -1,3 +1,9 @@
+/**
+ * @license PROPRIETARY
+ * Copyright (c) 2025-2026 Edisson Pinza — NeuroStyles. All rights reserved.
+ * This source code is licensed under a proprietary license. See LICENSE file.
+ * Unauthorized copying, modification, distribution or use is strictly prohibited.
+ */
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
