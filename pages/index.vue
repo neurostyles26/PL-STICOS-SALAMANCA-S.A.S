@@ -4,19 +4,19 @@
     <HeroSlider />
 
     <!-- 2. Categorías Destacadas (Banners Dinámicos - Ahora debajo de Hero Slider) -->
-    <section class="py-20 bg-brand-dark-950 text-white">
+    <section class="py-20 bg-white border-b border-slate-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
           <div class="flex flex-col gap-3">
-            <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-orange-400">
+            <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-orange-500">
               Nuestro Portafolio
             </span>
-            <h2 class="text-2xl sm:text-3xl md:text-5xl text-white font-bold leading-tight">
+            <h2 class="text-2xl sm:text-3xl md:text-5xl text-brand-dark-800 font-bold leading-tight">
               Categorías de Productos
             </h2>
             <div class="w-16 h-1 bg-brand-green-500 rounded-full mt-1"></div>
           </div>
-          <p class="text-slate-400 max-w-md text-sm md:text-base leading-relaxed">
+          <p class="text-slate-600 max-w-md text-sm md:text-base leading-relaxed">
             Fabricamos polietilenos de alta y baja densidad adaptados a las exigencias más rigurosas de la agricultura, el comercio y la industria pesada.
           </p>
         </div>
@@ -27,7 +27,7 @@
             :key="cat.id"
             v-motion-slide-visible-bottom
             :delay="i * 150"
-            class="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl group cursor-pointer border border-brand-dark-900"
+            class="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl group cursor-pointer border border-slate-100 bg-brand-dark-950"
           >
             <!-- Imagen de fondo optimizada con fallbacks robustos -->
             <NuxtImg 
@@ -64,7 +64,7 @@
           <button 
             @click="showAllCategories = !showAllCategories"
             type="button"
-            class="inline-flex items-center gap-2.5 px-6 py-3 border border-white/20 hover:border-brand-green-400 text-sm font-bold tracking-wider uppercase text-white hover:bg-brand-green-500 rounded-full transition-all duration-300 shadow-md group shrink-0"
+            class="inline-flex items-center gap-2.5 px-6 py-3 border border-slate-200 hover:border-brand-green-500 text-sm font-bold tracking-wider uppercase text-slate-800 hover:text-white hover:bg-brand-green-500 rounded-full transition-all duration-300 shadow-md group shrink-0"
           >
             <span>{{ showAllCategories ? 'Ver Menos Categorías' : 'Ver Más Categorías' }}</span>
             <ChevronDown class="w-4.5 h-4.5 transition-transform duration-300" :class="{ 'rotate-180': showAllCategories }" />
