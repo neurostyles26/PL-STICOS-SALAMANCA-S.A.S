@@ -304,6 +304,3 @@ Total:    ~30 MB (11 MB gzip)
 - **Sector:** Industrial / Agrícola / Empaques
 - **Stack:** Nuxt 3 + Supabase + TailwindCSS + Vercel
 
----
-
-> Desarrollado con Antigravity Architect 🚀

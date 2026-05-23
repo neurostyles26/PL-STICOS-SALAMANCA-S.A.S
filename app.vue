@@ -55,8 +55,41 @@ const themeStyles = computed(() => {
   return styles
 })
 
-// Inyectar bloque de estilos dinámicos en la cabecera
+// Computar la URL del favicon dinámicamente si hay un logotipo personalizado cargado
+const faviconUrl = computed(() => {
+  const logo = companyStore.companyInfo?.logo
+  if (logo?.use_custom && logo?.image_url) {
+    return logo.image_url
+  }
+  return '/favicon.ico'
+})
+
+// Determinar el tipo MIME del favicon
+const faviconType = computed(() => {
+  const url = faviconUrl.value
+  if (url.includes('.png')) return 'image/png'
+  if (url.includes('.svg')) return 'image/svg+xml'
+  if (url.includes('.jpg') || url.includes('.jpeg')) return 'image/jpeg'
+  if (url.includes('.webp')) return 'image/webp'
+  return 'image/x-icon'
+})
+
+// Inyectar bloque de estilos dinámicos y favicon en la cabecera
 useHead({
+  link: [
+    {
+      key: 'favicon',
+      rel: 'icon',
+      type: faviconType,
+      href: faviconUrl
+    },
+    {
+      key: 'shortcut-favicon',
+      rel: 'shortcut icon',
+      type: faviconType,
+      href: faviconUrl
+    }
+  ],
   style: [
     {
       id: 'dynamic-theme-colors',

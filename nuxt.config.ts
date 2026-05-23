@@ -75,7 +75,8 @@ export default defineNuxtConfig({
         { name: 'copyright', content: 'Edisson Pinza (Software Developer)' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { key: 'favicon', rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { key: 'shortcut-favicon', rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     }
   },
