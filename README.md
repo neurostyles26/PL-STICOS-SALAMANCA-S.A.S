@@ -1,306 +1,172 @@
-# 🏭 PLÁSTICOS SALAMANCA S.A.S.
+# Plásticos Salamanca S.A.S.
 
-> **Bolsas • Invernaderos • Empaques**  
-> Portal corporativo premium e industrial con panel de administración autogestionable.
-
----
-
-## 📋 Tabla de Contenidos
-
-- [Tecnologías](#-tecnologías)
-- [Arquitectura del Proyecto](#-arquitectura-del-proyecto)
-- [Estructura de Carpetas](#-estructura-de-carpetas)
-- [Configuración Inicial](#-configuración-inicial)
-- [Base de Datos (Supabase)](#-base-de-datos-supabase)
-- [Gestión de Estado (Pinia)](#-gestión-de-estado-pinia)
-- [Componentes Principales](#-componentes-principales)
-- [Páginas del Portal Público](#-páginas-del-portal-público)
-- [Panel de Administración](#-panel-de-administración)
-- [SEO y PWA](#-seo-y-pwa)
-- [Despliegue en Vercel](#-despliegue-en-vercel)
+Portal corporativo y catálogo digital para la empresa Plásticos Salamanca S.A.S., diseñado para optimizar la exposición de productos y automatizar la cotización directa mediante canales corporativos de comunicación.
 
 ---
 
-## 🛠 Tecnologías
+## Contenidos
 
-| Categoría      | Tecnología                                |
-|----------------|-------------------------------------------|
-| **Framework**  | Nuxt 3.21 + Vue 3 + TypeScript            |
-| **Estilos**    | TailwindCSS 3 + Google Fonts (Outfit, Inter) |
-| **Estado**     | Pinia                                     |
-| **Animaciones**| @vueuse/motion (Motion Vue)               |
-| **Imágenes**   | @nuxt/image (WebP, AVIF automático)       |
-| **Backend**    | Supabase (PostgreSQL + Auth + Storage)    |
-| **SEO**        | @nuxtjs/seo (meta dinámico, sitemap, og)  |
-| **PWA**        | @vite-pwa/nuxt (Service Worker, manifest) |
-| **Iconos**     | lucide-vue-next                           |
-| **Deploy**     | Vercel (SSR)                              |
+- [Ficha Técnica](#ficha-técnica)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Configuración de Entorno](#configuración-de-entorno)
+- [Base de Datos e Infraestructura](#base-de-datos-e-infraestructura)
+- [Gestión de Estado](#gestión-de-estado)
+- [Arquitectura de Componentes](#arquitectura-de-componentes)
+- [Estructura de Enrutamiento](#estructura-de-enrutamiento)
+- [Optimización de Buscadores (SEO) y PWA](#optimización-de-buscadores-seo-y-pwa)
+- [Despliegue](#despliegue)
 
 ---
 
-## 🏗 Arquitectura del Proyecto
+## Ficha Técnica
 
-```
-┌──────────────────────────────────────────────────────┐
-│                    NAVEGADOR (CLIENTE)                │
-│  ┌─────────────┐ ┌─────────────┐ ┌───────────────┐   │
-│  │  Vue 3 SFC  │ │ Pinia Store │ │ Motion Vue    │   │
-│  │ Components  │ │  (Reactivo) │ │ (Animaciones) │   │
-│  └──────┬──────┘ └──────┬──────┘ └───────────────┘   │
-│         │               │                            │
-│         └───────┬───────┘                            │
-│                 ▼                                    │
-│  ┌──────────────────────────────┐                    │
-│  │    Nuxt 3 SSR / Hydration   │                    │
-│  │    (SEO + PWA + Routing)    │                    │
-│  └──────────────┬──────────────┘                    │
-└─────────────────┼────────────────────────────────────┘
-                  │  HTTPS
-                  ▼
-┌──────────────────────────────────────────────────────┐
-│                     SUPABASE                         │
-│  ┌────────────┐ ┌────────────┐ ┌─────────────────┐   │
-│  │ PostgreSQL │ │ Auth       │ │ Storage         │   │
-│  │ (Tablas)   │ │ (JWT)      │ │ (salamanca-     │   │
-│  │            │ │            │ │  media bucket)  │   │
-│  └────────────┘ └────────────┘ └─────────────────┘   │
-│  Row Level Security (RLS):                           │
-│  • Lectura: pública                                  │
-│  • Escritura: solo usuarios autenticados             │
-└──────────────────────────────────────────────────────┘
-```
+| Capa / Tecnología | Especificación |
+|-------------------|----------------|
+| Framework Principal | Nuxt 3.21 (Vue 3, TypeScript) |
+| Estilos y Layout | TailwindCSS 3, Fuentes corporativas (Outfit, Inter) |
+| Gestión de Estado | Pinia (Stores modulares para Auth, Company y Products) |
+| Animaciones de Interfaz | @vueuse/motion |
+| Optimización de Imagen | @nuxt/image (formatos WebP y AVIF autogenerados) |
+| Base de Datos y Backend | Supabase (PostgreSQL, Auth y Storage) |
+| SEO y Metadata | @nuxtjs/seo (Sitemaps, metadatos estructurados y Open Graph) |
+| Funcionalidades PWA | @vite-pwa/nuxt (Service Worker y manifiesto de instalación) |
+| Iconografía | Lucide Vue Next |
+| Servidor de Producción | Vercel (Server-Side Rendering - SSR) |
 
 ---
 
-## 📁 Estructura de Carpetas
+## Estructura del Proyecto
 
-```
-Plasticos-Salamanca/
-├── .env.example          # Variables de entorno de ejemplo
-├── .gitignore            # Archivos excluidos de Git
-├── nuxt.config.ts        # Configuración central de Nuxt
-├── tailwind.config.js    # Paleta de colores y tipografías
-├── package.json          # Dependencias del proyecto
-├── tsconfig.json         # Configuración de TypeScript
-│
-├── assets/
-│   └── css/
-│       └── main.css      # Estilos globales (fuentes, scrollbar, glass effects)
-│
-├── components/
-│   ├── Navbar.vue        # Barra de navegación sticky con glassmorphism
-│   ├── Footer.vue        # Pie de página corporativo oscuro
-│   ├── WhatsAppButton.vue# Botón flotante de WhatsApp con ping animation
-│   └── ui/
-│       ├── Logo.vue      # Logotipo SVG vectorial animado
-│       ├── BaseButton.vue# Botón reutilizable (primary, secondary, outline, dark)
-│       └── HeroSlider.vue# Carrusel de banners de pantalla completa
-│
-├── database/
-│   └── schema.sql        # Script completo de creación de tablas + RLS
-│
-├── layouts/
-│   ├── default.vue       # Layout público (Navbar + Footer + WhatsApp)
-│   └── admin.vue         # Layout privado (sidebar + contenido protegido)
-│
-├── middleware/
-│   └── admin-auth.ts     # Middleware de protección de rutas admin
-│
-├── pages/
-│   ├── index.vue         # Página de inicio (Home)
-│   ├── quienes-somos.vue # Página Quiénes Somos
-│   ├── contacto.vue      # Página de Contacto + Google Maps
-│   ├── productos/
-│   │   ├── index.vue     # Catálogo con filtros y buscador
-│   │   └── [slug].vue    # Detalle de producto dinámico
-│   └── admin/
-│       ├── login.vue     # Login administrativo (Supabase Auth)
-│       ├── index.vue     # Gestión de información corporativa
-│       ├── categorias.vue# CRUD de categorías del portafolio
-│       ├── productos.vue # CRUD de productos + ficha técnica JSON
-│       └── banners.vue   # CRUD de slides del carrusel Hero
-│
-├── public/
-│   ├── favicon.ico       # Icono del sitio
-│   └── icon.png          # Icono PWA (192x192 / 512x512)
-│
-├── server/
-│   └── tsconfig.json     # Configuración de TypeScript del servidor Nitro
-│
-└── stores/
-    ├── auth.ts           # Store de autenticación (login, logout, sesión)
-    ├── company.ts        # Store de datos corporativos + banners + storage
-    └── products.ts       # Store de productos + categorías + CRUD
-```
+El código fuente está organizado siguiendo el estándar de Nuxt 3, promoviendo la modularidad y separación de responsabilidades:
+
+- **assets/**: Hojas de estilos globales y tokens de diseño.
+- **components/**: Componentes de interfaz de usuario.
+  - **ui/**: Bloques modulares reutilizables y carruseles dinámicos.
+- **database/**: Esquema de base de datos SQL y directivas RLS.
+- **layouts/**: Estructuras de página (pública con navegación general y privada con barra lateral administrativa).
+- **middleware/**: Controladores de acceso para rutas restringidas.
+- **pages/**: Estructura de vistas del portal y panel administrativo.
+- **public/**: Recursos estáticos accesibles directamente por el navegador.
+- **server/**: Configuración específica para el motor de ejecución Nitro.
+- **stores/**: Gestión de estado global con persistencia de sesión e integración de Supabase.
 
 ---
 
-## ⚙ Configuración Inicial
+## Configuración de Entorno
 
-### 1. Clonar e Instalar
+### Requisitos Previos
+- Node.js (versión 18 o superior)
+- Administrador de paquetes npm
 
-```bash
-git clone <repositorio>
-cd Plasticos-Salamanca
-npm install
-```
+### Pasos de Instalación
+1. Clonar el repositorio.
+2. Instalar dependencias del proyecto:
+   ```bash
+   npm install
+   ```
+3. Copiar el archivo de plantilla para las variables de entorno:
+   ```bash
+   cp .env.example .env
+   ```
+4. Completar las variables requeridas en el archivo `.env`:
+   ```env
+   SUPABASE_URL=https://<referencia-de-proyecto>.supabase.co
+   SUPABASE_KEY=<clave-anonima-publica>
+   ```
 
-### 2. Variables de Entorno
-
-Copiar `.env.example` a `.env` y completar:
-
-```env
-SUPABASE_URL=https://TU-PROYECTO.supabase.co
-SUPABASE_KEY=tu-clave-publica-anon
-```
-
-### 3. Ejecutar en Desarrollo
-
-```bash
-npm run dev
-```
-
-El servidor arrancará en `http://localhost:3000`.
-
-### 4. Compilar para Producción
-
-```bash
-npm run build
-```
-
----
-
-## 🗄 Base de Datos (Supabase)
-
-### Tablas
-
-| Tabla          | Descripción                                          |
-|----------------|------------------------------------------------------|
-| `categories`   | Categorías del catálogo (nombre, slug, imagen)       |
-| `products`     | Productos con FK a categoría, imágenes[] y specs{}   |
-| `banners`      | Slides del carrusel Hero (título, imagen, orden)     |
-| `company_info` | Información corporativa (misión, visión, valores)    |
-
-### Ejecución del Schema
-
-1. Ir a **Supabase Dashboard → SQL Editor**
-2. Copiar el contenido de `database/schema.sql`
-3. Hacer clic en **Run**
-
-### Storage
-
-Crear un bucket público llamado **`salamanca-media`** con:
-- **Lectura pública** (para servir imágenes en el portal)
-- **Escritura** solo para usuarios autenticados (panel admin)
+### Comandos de Ejecución
+- **Desarrollo**: Inicia el servidor de desarrollo local con recarga en caliente.
+  ```bash
+  npm run dev
+  ```
+- **Compilación de Producción**: Compila el proyecto generando el servidor SSR optimizado.
+  ```bash
+  npm run build
+  ```
 
 ---
 
-## 📦 Gestión de Estado (Pinia)
+## Base de Datos e Infraestructura
 
-### `stores/auth.ts`
-- `login(email, password)` → Autentica con Supabase Auth
-- `logout()` → Cierra sesión
-- `isLoggedIn` → Computed reactivo de sesión activa
+La persistencia de datos se gestiona mediante PostgreSQL alojado en Supabase, aplicando políticas de seguridad Row Level Security (RLS) para proteger los datos corporativos.
 
-### `stores/company.ts`
-- `fetchCompanyInfo()` → Carga misión, visión, valores desde `company_info`
-- `saveCompanyInfo(data)` → Guarda datos corporativos
-- `fetchBanners()` → Lista slides del carrusel
-- `saveBanner(data)` / `deleteBanner(id)` → CRUD de banners
-- `uploadImage(file, folder)` → Sube archivo a Supabase Storage
+### Tablas del Sistema
+- **`categories`**: Líneas de producto configuradas en la plataforma (nombre, slug único e imagen representativa).
+- **`products`**: Catálogo de productos con llave foránea a categorías, arreglo de imágenes y especificaciones técnicas en formato JSON.
+- **`banners`**: Elementos gráficos del carrusel dinámico principal (título, subtítulo, URL de imagen, link y orden de visualización).
+- **`company_info`**: Colección de valores llave-valor para almacenar información de la empresa (misión, visión, políticas de contacto y branding de marca).
 
-### `stores/products.ts`
-- `fetchCategories()` → Lista categorías del catálogo
-- `saveCategory(data)` / `deleteCategory(id)` → CRUD de categorías
-- `fetchProducts()` → Lista todos los productos con JOIN de categoría
-- `fetchProductBySlug(slug)` → Obtiene un producto por slug (SSR)
-- `saveProduct(data)` / `deleteProduct(id)` → CRUD de productos
+### Seguridad e Integridad de Datos
+1. Las directivas de creación y permisos de tablas se encuentran documentadas en `database/schema.sql`.
+2. Las consultas de lectura son públicas a través del cliente Supabase, mientras que las operaciones de escritura (inserciones, actualizaciones y eliminaciones) requieren autenticación mediante JSON Web Token (JWT).
+3. Se requiere un contenedor de almacenamiento público en Supabase Storage denominado `salamanca-media` para gestionar de forma segura los recursos multimedia.
 
 ---
 
-## 🧱 Componentes Principales
+## Gestión de Estado
 
-| Componente           | Función                                                      |
-|----------------------|--------------------------------------------------------------|
-| `Navbar.vue`         | Header sticky con glassmorphism, menú móvil slide-down       |
-| `Footer.vue`         | Pie de página oscuro con 4 columnas y categorías dinámicas   |
-| `HeroSlider.vue`     | Carrusel automático con animaciones CSS, flechas y dots      |
-| `BaseButton.vue`     | Botón universal: NuxtLink / `<a>` / `<button>` automático   |
-| `WhatsAppButton.vue` | Botón flotante con pulse animation, oculto en rutas `/admin` |
-| `Logo.vue`           | Isologotipo SVG con gradientes de marca                      |
+La lógica de negocio se centraliza en stores de Pinia:
 
----
+### auth
+- Gestiona el ciclo de vida de la sesión administrativa a través de Supabase Auth.
+- Expone controladores de acceso como `login`, `logout` y estados reactivos como `isLoggedIn`.
 
-## 🌐 Páginas del Portal Público
+### company
+- Recupera y actualiza la información corporativa almacenada en la base de datos.
+- Administra el flujo de actualización de banners y la subida de imágenes optimizadas a Supabase Storage.
+- Controla el esquema de colores y la paleta dinámica de la marca inyectada en tiempo de ejecución.
 
-| Ruta                   | Archivo                        | Función                               |
-|------------------------|--------------------------------|---------------------------------------|
-| `/`                    | `pages/index.vue`              | Home: slider, categorías, beneficios  |
-| `/quienes-somos`       | `pages/quienes-somos.vue`      | Historia, misión, visión, valores     |
-| `/productos`           | `pages/productos/index.vue`    | Catálogo con filtros y buscador       |
-| `/productos/:slug`     | `pages/productos/[slug].vue`   | Detalle con galería y ficha técnica   |
-| `/contacto`            | `pages/contacto.vue`           | Formulario + canales + Google Maps    |
+### products
+- Sincroniza las categorías y productos disponibles.
+- Implementa el CRUD de productos, categorías y fichas técnicas.
 
 ---
 
-## 🔐 Panel de Administración
+## Arquitectura de Componentes
 
-| Ruta                   | Archivo                        | Función                               |
-|------------------------|--------------------------------|---------------------------------------|
-| `/admin/login`         | `pages/admin/login.vue`        | Autenticación con Supabase Auth       |
-| `/admin`               | `pages/admin/index.vue`        | Editar info corporativa               |
-| `/admin/categorias`    | `pages/admin/categorias.vue`   | CRUD de categorías + imágenes         |
-| `/admin/productos`     | `pages/admin/productos.vue`    | CRUD de productos + ficha técnica     |
-| `/admin/banners`       | `pages/admin/banners.vue`      | CRUD de slides del carrusel           |
-
-**Protección:** Todas las rutas `/admin/*` (excepto login) están protegidas por el middleware `admin-auth.ts` que verifica la sesión de Supabase Auth.
+- **`Navbar`**: Cabecera principal adaptativa con efecto difuminado y menú móvil desplegable.
+- **`Footer`**: Estructura de pie de página de alta gama con enlaces de contacto y navegación rápida.
+- **`WhatsAppButton`**: Botón flotante para la comunicación instantánea con animaciones de llamada a la acción en rutas públicas.
+- **`Logo`**: Representación gráfica vectorial con colores corporativos adaptativa al tema oscuro o claro.
+- **`BaseButton`**: Envoltorio de acción que discrimina el tipo de enlace para comportamiento interno en el framework o enlaces web externos de forma transparente.
 
 ---
 
-## 🔍 SEO y PWA
+## Estructura de Enrutamiento
+
+### Sección Pública
+- **`/`**: Portal de inicio que muestra los banners dinámicos, beneficios y accesos directos.
+- **`/quienes-somos`**: Presentación de la empresa, filosofía y objetivos.
+- **`/productos`**: Catálogo interactivo con filtrado dinámico por categoría y motor de búsqueda integrado.
+- **`/productos/:slug`**: Detalle técnico del producto seleccionado, visor de imágenes y acceso a cotización directa.
+- **`/contacto`**: Información de canales de atención y formulario comercial con mapa interactivo.
+
+### Panel de Administración
+- **`/admin/login`**: Acceso al panel administrativo seguro.
+- **`/admin`**: Gestión de datos corporativos, dirección física y datos de contacto de WhatsApp.
+- **`/admin/categorias`**: Administración de líneas del portafolio.
+- **`/admin/productos`**: Módulo de administración de productos y especificaciones técnicas.
+- **`/admin/banners`**: Administrador del carrusel de inicio.
+
+---
+
+## Optimización de Buscadores (SEO) y PWA
 
 ### SEO
-- **Metadatos dinámicos** por página vía `useSeoMeta()`
-- **Open Graph** con imágenes, títulos y descripciones por ruta
-- **Sitemap automático** generado por `@nuxtjs/seo`
-- **Robots.txt** autogenerado
-- **HTML semántico** con headings jerárquicos (`h1` > `h2` > `h3`)
+- Uso de `useSeoMeta()` en vistas para inyectar títulos limpios y descripciones detalladas por página.
+- Generación de Sitemap y directivas robots configurados para indexación rápida.
+- Uso exclusivo de HTML5 semántico para jerarquización de contenidos.
 
 ### PWA
-- **Manifest** con nombre, colores y orientación de la app
-- **Service Worker** (Workbox) con precaching de assets estáticos
-- **Instalable** en dispositivos móviles como app nativa
+- Configuración de un Service Worker mediante Workbox para habilitar la navegación offline y cacheado de recursos estáticos.
+- Manifiesto web que permite instalar el portal como aplicación nativa en dispositivos iOS y Android.
+- Favicon e iconos dinámicos sincronizados con el branding configurado en el panel administrativo.
 
 ---
 
-## 🚀 Despliegue en Vercel
+## Despliegue
 
-### Pasos
-
-1. Subir el repositorio a GitHub / GitLab / Bitbucket
-2. Ir a [vercel.com](https://vercel.com) → **Add New Project**
-3. Seleccionar el repositorio `Plasticos-Salamanca`
-4. Vercel detecta automáticamente **Nuxt** como framework
-5. Configurar **Environment Variables**:
-   - `SUPABASE_URL` → URL de tu proyecto Supabase
-   - `SUPABASE_KEY` → Clave pública `anon`
-6. Hacer clic en **Deploy**
-
-### Build Output
-
-```
-Preset:   node-server (SSR)
-Client:   ~44s de compilación
-Server:   ~17s de compilación
-PWA:      43 entries precacheadas (629 KB)
-Total:    ~30 MB (11 MB gzip)
-```
-
----
-
-## 📞 Contacto del Proyecto
-
-- **Empresa:** PLÁSTICOS SALAMANCA S.A.S.
-- **Sector:** Industrial / Agrícola / Empaques
-- **Stack:** Nuxt 3 + Supabase + TailwindCSS + Vercel
-
+La aplicación está optimizada para desplegarse en Vercel como un servicio Server-Side Rendered (SSR):
+1. Importar el repositorio Git en la consola de Vercel.
+2. Definir las variables de entorno `SUPABASE_URL` y `SUPABASE_KEY`.
+3. Vercel compila e inicializa el servidor global de Nuxt de forma automática.

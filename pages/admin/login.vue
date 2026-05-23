@@ -77,6 +77,18 @@
         >
           Autenticar Acceso
         </BaseButton>
+
+        <!-- Botón Regresar al Sitio -->
+        <BaseButton 
+          variant="outline" 
+          to="/"
+          class="w-full py-3 border-slate-200 hover:border-slate-300 text-slate-600 font-semibold"
+        >
+          <template #iconLeft>
+            <ArrowLeft class="w-4 h-4" />
+          </template>
+          Regresar al Sitio Principal
+        </BaseButton>
       </form>
     </div>
   </div>
@@ -88,7 +100,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '~/stores/auth'
 import Logo from '~/components/ui/Logo.vue'
 import BaseButton from '~/components/ui/BaseButton.vue'
-import { Mail, Lock, AlertCircle } from 'lucide-vue-next'
+import { Mail, Lock, AlertCircle, ArrowLeft } from 'lucide-vue-next'
 
 // Deshabilitar Layout Global y registrar middleware de protección
 definePageMeta({

@@ -432,9 +432,10 @@ import {
 
 // Definición del SEO de la Home Page
 useSeoMeta({
-  title: 'Bolsas • Invernaderos • Empaques Premium',
+  title: 'Plásticos Salamanca S.A.S.',
+  titleTemplate: '%s',
   description: 'Fabricación y venta de bolsas de alta resistencia, películas plásticas con protección UV para invernaderos y empaques industriales flexibles. Calidad Salamanca.',
-  ogTitle: 'Plásticos Salamanca S.A.S. - Bolsas • Invernaderos • Empaques',
+  ogTitle: 'Plásticos Salamanca S.A.S.',
   ogDescription: 'Películas de polietileno de alta y baja densidad para el sector agrícola e industrial nacional con aditivos avanzados.',
   ogImage: 'https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=1200&q=80',
   twitterCard: 'summary_large_image'
