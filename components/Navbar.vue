@@ -161,6 +161,7 @@ const navLinks = [
   { label: 'Inicio', to: '/' },
   { label: 'Quiénes Somos', to: '/quienes-somos' },
   { label: 'Productos', to: '/productos' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Contacto', to: '/contacto' }
 ]
 

@@ -141,7 +141,8 @@ import {
   LogOut, 
   Menu, 
   X, 
-  UserCheck 
+  UserCheck,
+  FileText
 } from 'lucide-vue-next'
 
 const route = useRoute()
@@ -155,6 +156,7 @@ const menuLinks = [
   { label: 'Gestión Categorías', to: '/admin/categorias', icon: Layers },
   { label: 'Gestión Productos', to: '/admin/productos', icon: Package },
   { label: 'Gestión Banners', to: '/admin/banners', icon: ImageIcon },
+  { label: 'Gestión Blog', to: '/admin/blog', icon: FileText },
   { label: 'Ver Sitio Web', to: '/', icon: Globe }
 ]
 
