@@ -177,7 +177,7 @@
           <NuxtImg 
             src="https://images.unsplash.com/photo-1605600611280-146c68e3b9ef?auto=format&fit=crop&w=300&q=80" 
             alt="Sin resultados en catálogo"
-            class="w-32 h-32 object-cover rounded-full grayscale opacity-40 mb-2"
+            class="w-32 h-32 object-cover rounded-full opacity-90 mb-2"
           />
           <h3 class="font-title font-bold text-xl text-brand-dark-800">No se encontraron productos</h3>
           <p class="text-slate-500 text-sm max-w-sm">

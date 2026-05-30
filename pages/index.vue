@@ -37,8 +37,8 @@
               format="webp"
               @error="handleImageError($event, cat)"
             />
-            <!-- Overlay visual sofisticado -->
-            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark-950 via-brand-dark-950/40 to-transparent transition-opacity duration-300"></div>
+            <!-- Overlay visual sofisticado (Optimizado con menor opacidad para mayor claridad de la imagen) -->
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark-950/60 via-brand-dark-950/15 to-transparent transition-opacity duration-300"></div>
 
             <!-- Contenido textual -->
             <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col gap-3 justify-end h-1/2">
@@ -240,7 +240,7 @@
         <NuxtImg 
           src="https://images.unsplash.com/photo-1605600611280-146c68e3b9ef?auto=format&fit=crop&w=400&q=80" 
           alt="Cargando productos destacados" 
-          class="w-24 h-24 object-cover rounded-full mx-auto mb-4 opacity-40 grayscale"
+          class="w-24 h-24 object-cover rounded-full mx-auto mb-4 opacity-90 transition-opacity"
         />
         <p class="text-base font-semibold">Cargando productos destacados...</p>
       </div>

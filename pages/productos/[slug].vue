@@ -150,7 +150,7 @@
         <NuxtImg 
           src="https://images.unsplash.com/photo-1605600611280-146c68e3b9ef?auto=format&fit=crop&w=400&q=80" 
           alt="Producto no encontrado" 
-          class="w-24 h-24 object-cover rounded-full mx-auto mb-4 grayscale opacity-45"
+          class="w-24 h-24 object-cover rounded-full mx-auto mb-4 opacity-90"
         />
         <h2 class="text-2xl font-bold text-brand-dark-800 mb-2">Producto no encontrado</h2>
         <p class="text-slate-500 text-sm max-w-md mx-auto mb-6">

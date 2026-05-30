@@ -19,7 +19,7 @@
         />
 
         <!-- Overlay Oscuro Degradado para Legibilidad Premium (Optimizado para brillo y nitidez de las imágenes) -->
-        <div class="absolute inset-0 bg-gradient-to-r from-brand-dark-950/50 via-brand-dark-950/20 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-dark-950/40 via-brand-dark-950/10 to-transparent"></div>
 
         <!-- Contenido del Slide (Animaciones suaves con Motion Vue / Tailwind) -->
         <div class="absolute inset-0 flex items-center">
