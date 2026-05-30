@@ -89,11 +89,11 @@
             class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full"
           >
             <!-- Imagen del Producto -->
-            <NuxtLink :to="`/productos/${product.slug}`" class="relative block aspect-[4/3] bg-slate-100 overflow-hidden shrink-0">
+            <NuxtLink :to="`/productos/${product.slug}`" class="relative block aspect-[4/3] bg-slate-50 border-b border-slate-100 overflow-hidden shrink-0">
               <NuxtImg 
                 :src="product.images[0] || 'https://images.unsplash.com/photo-1605600611280-146c68e3b9ef?auto=format&fit=crop&w=800&q=80'" 
                 :alt="product.name"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                class="w-full h-full object-contain group-hover:scale-102 transition-transform duration-500"
                 format="webp"
                 loading="lazy"
               />

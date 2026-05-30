@@ -35,7 +35,7 @@
             <NuxtImg 
               :src="activeImage || 'https://images.unsplash.com/photo-1605600611280-146c68e3b9ef?auto=format&fit=crop&w=800&q=80'" 
               :alt="product.name"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              class="w-full h-full object-contain group-hover:scale-102 transition-transform duration-500"
               format="webp"
               loading="eager"
             />
@@ -50,7 +50,7 @@
               class="w-20 h-20 rounded-lg border-2 overflow-hidden transition-all bg-slate-50"
               :class="[activeImage === img ? 'border-brand-green-500 shadow-md shadow-brand-green-100' : 'border-slate-100 hover:border-slate-300']"
             >
-              <NuxtImg :src="img" :alt="`${product.name} miniatura ${idx + 1}`" class="w-full h-full object-cover" format="webp" />
+              <NuxtImg :src="img" :alt="`${product.name} miniatura ${idx + 1}`" class="w-full h-full object-contain" format="webp" />
             </button>
           </div>
         </div>
@@ -173,11 +173,11 @@
             :key="rel.id"
             class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full"
           >
-            <NuxtLink :to="`/productos/${rel.slug}`" class="relative block aspect-[4/3] bg-slate-100 overflow-hidden shrink-0">
+            <NuxtLink :to="`/productos/${rel.slug}`" class="relative block aspect-[4/3] bg-slate-50 border-b border-slate-100 overflow-hidden shrink-0">
               <NuxtImg 
                 :src="rel.images[0] || 'https://images.unsplash.com/photo-1605600611280-146c68e3b9ef?auto=format&fit=crop&w=800&q=80'" 
                 :alt="rel.name"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                class="w-full h-full object-contain group-hover:scale-102 transition-transform duration-500"
                 format="webp"
               />
             </NuxtLink>

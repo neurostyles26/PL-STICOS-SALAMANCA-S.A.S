@@ -63,7 +63,7 @@
                   v-if="prod.images && prod.images[0]" 
                   :src="prod.images[0]" 
                   :alt="prod.name"
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                   format="webp"
                 />
                 <div v-else class="w-full h-full bg-slate-150 flex items-center justify-center text-slate-400">
@@ -298,7 +298,7 @@
                   :key="idx"
                   class="relative w-28 h-20 border border-slate-200 rounded-xl overflow-hidden bg-slate-50 shadow-inner group"
                 >
-                  <NuxtImg :src="url" alt="Gallery Preview" class="w-full h-full object-cover" />
+                  <NuxtImg :src="url" alt="Gallery Preview" class="w-full h-full object-contain" />
                   <!-- Overlay de eliminación rápido -->
                   <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
                     <button 
