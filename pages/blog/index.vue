@@ -8,9 +8,6 @@
       <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-orange-500 rounded-full blur-[120px] opacity-20"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-10 text-center flex flex-col items-center gap-6">
-        <span class="bg-brand-green-500/10 text-brand-green-400 font-title text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-brand-green-500/20 animate-fade-in">
-          Actualidad & Conocimiento Técnico
-        </span>
         <h1 class="font-title font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-tight max-w-3xl leading-tight">
           Blog de Soluciones <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green-400 to-brand-orange-400">Plásticas</span>
         </h1>

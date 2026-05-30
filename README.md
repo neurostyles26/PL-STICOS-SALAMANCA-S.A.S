@@ -95,9 +95,10 @@ La persistencia de datos se gestiona mediante PostgreSQL alojado en Supabase, ap
 - **`products`**: Catálogo de productos con llave foránea a categorías, arreglo de imágenes y especificaciones técnicas en formato JSON.
 - **`banners`**: Elementos gráficos del carrusel dinámico principal (título, subtítulo, URL de imagen, link y orden de visualización).
 - **`company_info`**: Colección de valores llave-valor para almacenar información de la empresa (misión, visión, políticas de contacto y branding de marca).
+- **`posts`**: Artículos del blog técnico y comercial, incluyendo metadatos de autoría y fecha de publicación.
 
 ### Seguridad e Integridad de Datos
-1. Las directivas de creación y permisos de tablas se encuentran documentadas en `database/schema.sql`.
+1. Las directivas de creación y permisos de tablas se encuentran documentadas en `database/schema.sql` y `database/blog.sql`.
 2. Las consultas de lectura son públicas a través del cliente Supabase, mientras que las operaciones de escritura (inserciones, actualizaciones y eliminaciones) requieren autenticación mediante JSON Web Token (JWT).
 3. Se requiere un contenedor de almacenamiento público en Supabase Storage denominado `salamanca-media` para gestionar de forma segura los recursos multimedia.
 
@@ -120,6 +121,9 @@ La lógica de negocio se centraliza en stores de Pinia:
 - Sincroniza las categorías y productos disponibles.
 - Implementa el CRUD de productos, categorías y fichas técnicas.
 
+### blog
+- Gestiona la carga de artículos para lectores y la administración completa del CMS del Blog.
+
 ---
 
 ## Arquitectura de Componentes
@@ -139,6 +143,8 @@ La lógica de negocio se centraliza en stores de Pinia:
 - **`/quienes-somos`**: Presentación de la empresa, filosofía y objetivos.
 - **`/productos`**: Catálogo interactivo con filtrado dinámico por categoría y motor de búsqueda integrado.
 - **`/productos/:slug`**: Detalle técnico del producto seleccionado, visor de imágenes y acceso a cotización directa.
+- **`/blog`**: Catálogo de artículos técnicos con filtros avanzados y buscador.
+- **`/blog/:slug`**: Visor detallado de artículos del blog, herramientas de compartir y llamado a la acción comercial.
 - **`/contacto`**: Información de canales de atención y formulario comercial con mapa interactivo.
 
 ### Panel de Administración
@@ -147,6 +153,7 @@ La lógica de negocio se centraliza en stores de Pinia:
 - **`/admin/categorias`**: Administración de líneas del portafolio.
 - **`/admin/productos`**: Módulo de administración de productos y especificaciones técnicas.
 - **`/admin/banners`**: Administrador del carrusel de inicio.
+- **`/admin/blog`**: Panel CMS de gestión completa de artículos del blog.
 
 ---
 
